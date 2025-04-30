@@ -120,9 +120,149 @@ exports.Prisma.TransactionIsolationLevel = makeStrictEnum({
   Serializable: 'Serializable'
 });
 
+exports.Prisma.UserScalarFieldEnum = {
+  id: 'id',
+  email: 'email',
+  passwordHash: 'passwordHash',
+  role: 'role',
+  createdAt: 'createdAt',
+  updatedAt: 'updatedAt'
+};
+
+exports.Prisma.ProfileScalarFieldEnum = {
+  id: 'id',
+  userId: 'userId',
+  displayName: 'displayName',
+  bio: 'bio',
+  gender: 'gender',
+  interests: 'interests',
+  avatarUrl: 'avatarUrl',
+  createdAt: 'createdAt',
+  updatedAt: 'updatedAt'
+};
+
+exports.Prisma.FriendScalarFieldEnum = {
+  id: 'id',
+  userId: 'userId',
+  hourlyRate: 'hourlyRate',
+  perMinuteRate: 'perMinuteRate',
+  availabilityJson: 'availabilityJson',
+  specialties: 'specialties',
+  isVerified: 'isVerified',
+  averageRating: 'averageRating',
+  totalReviews: 'totalReviews',
+  createdAt: 'createdAt',
+  updatedAt: 'updatedAt'
+};
+
+exports.Prisma.SessionScalarFieldEnum = {
+  id: 'id',
+  seekerId: 'seekerId',
+  friendId: 'friendId',
+  startTime: 'startTime',
+  endTime: 'endTime',
+  durationMinutes: 'durationMinutes',
+  status: 'status',
+  communicationType: 'communicationType',
+  createdAt: 'createdAt',
+  updatedAt: 'updatedAt'
+};
+
+exports.Prisma.ReviewScalarFieldEnum = {
+  id: 'id',
+  sessionId: 'sessionId',
+  reviewerId: 'reviewerId',
+  friendId: 'friendId',
+  rating: 'rating',
+  comment: 'comment',
+  createdAt: 'createdAt',
+  updatedAt: 'updatedAt'
+};
+
+exports.Prisma.ReportScalarFieldEnum = {
+  id: 'id',
+  reporterId: 'reporterId',
+  reportedUserId: 'reportedUserId',
+  sessionId: 'sessionId',
+  reason: 'reason',
+  details: 'details',
+  status: 'status',
+  createdAt: 'createdAt',
+  updatedAt: 'updatedAt'
+};
+
+exports.Prisma.BlockScalarFieldEnum = {
+  id: 'id',
+  blockerId: 'blockerId',
+  blockedUserId: 'blockedUserId',
+  createdAt: 'createdAt'
+};
+
+exports.Prisma.SortOrder = {
+  asc: 'asc',
+  desc: 'desc'
+};
+
+exports.Prisma.QueryMode = {
+  default: 'default',
+  insensitive: 'insensitive'
+};
+
+exports.Prisma.NullsOrder = {
+  first: 'first',
+  last: 'last'
+};
+exports.UserRole = exports.$Enums.UserRole = {
+  SEEKER: 'SEEKER',
+  FRIEND: 'FRIEND',
+  ADMIN: 'ADMIN'
+};
+
+exports.Gender = exports.$Enums.Gender = {
+  MALE: 'MALE',
+  FEMALE: 'FEMALE',
+  NON_BINARY: 'NON_BINARY',
+  OTHER: 'OTHER',
+  PREFER_NOT_TO_SAY: 'PREFER_NOT_TO_SAY'
+};
+
+exports.Specialty = exports.$Enums.Specialty = {
+  EMOTIONAL_SUPPORT: 'EMOTIONAL_SUPPORT',
+  CAREER_ADVICE: 'CAREER_ADVICE',
+  LIFE_COACHING: 'LIFE_COACHING',
+  STRESS_MANAGEMENT: 'STRESS_MANAGEMENT',
+  MINDFULNESS: 'MINDFULNESS'
+};
+
+exports.SessionStatus = exports.$Enums.SessionStatus = {
+  PENDING: 'PENDING',
+  ACTIVE: 'ACTIVE',
+  COMPLETED: 'COMPLETED',
+  CANCELLED: 'CANCELLED'
+};
+
+exports.CommunicationType = exports.$Enums.CommunicationType = {
+  CHAT: 'CHAT',
+  VOICE: 'VOICE',
+  VIDEO: 'VIDEO'
+};
+
+exports.ReportStatus = exports.$Enums.ReportStatus = {
+  SUBMITTED: 'SUBMITTED',
+  UNDER_REVIEW: 'UNDER_REVIEW',
+  RESOLVED_ACTION_TAKEN: 'RESOLVED_ACTION_TAKEN',
+  RESOLVED_NO_ACTION: 'RESOLVED_NO_ACTION',
+  DISMISSED: 'DISMISSED'
+};
 
 exports.Prisma.ModelName = {
-
+  User: 'User',
+  Profile: 'Profile',
+  Friend: 'Friend',
+  Session: 'Session',
+  Review: 'Review',
+  Report: 'Report',
+  Block: 'Block'
 };
 
 /**
