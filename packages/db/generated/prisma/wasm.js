@@ -226,14 +226,6 @@ exports.Gender = exports.$Enums.Gender = {
   PREFER_NOT_TO_SAY: 'PREFER_NOT_TO_SAY'
 };
 
-exports.Specialty = exports.$Enums.Specialty = {
-  EMOTIONAL_SUPPORT: 'EMOTIONAL_SUPPORT',
-  CAREER_ADVICE: 'CAREER_ADVICE',
-  LIFE_COACHING: 'LIFE_COACHING',
-  STRESS_MANAGEMENT: 'STRESS_MANAGEMENT',
-  MINDFULNESS: 'MINDFULNESS'
-};
-
 exports.SessionStatus = exports.$Enums.SessionStatus = {
   PENDING: 'PENDING',
   ACTIVE: 'ACTIVE',

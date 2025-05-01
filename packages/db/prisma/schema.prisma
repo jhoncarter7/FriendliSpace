@@ -67,14 +67,7 @@ model Profile {
   @@map("profiles")
 }
 
-enum Specialty {
-  EMOTIONAL_SUPPORT
-  CAREER_ADVICE
-  LIFE_COACHING
-  STRESS_MANAGEMENT
-  MINDFULNESS
-  
-}
+
 
 model Friend {
   id               String      @id @default(cuid())
@@ -84,7 +77,7 @@ model Friend {
   hourlyRate       Float?
   perMinuteRate    Float?
   availabilityJson String? 
-  specialties      Specialty[] @default([]) 
+  specialties      String[] @default([]) 
   isVerified       Boolean     @default(false) 
   averageRating    Float       @default(0.0) 
   totalReviews     Int         @default(0)

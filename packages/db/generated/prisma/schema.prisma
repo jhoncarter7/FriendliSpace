@@ -67,28 +67,20 @@ model Profile {
   @@map("profiles")
 }
 
-enum Specialty {
-  EMOTIONAL_SUPPORT
-  CAREER_ADVICE
-  LIFE_COACHING
-  STRESS_MANAGEMENT
-  MINDFULNESS
-}
-
 model Friend {
-  id               String      @id @default(cuid())
-  userId           String      @unique
-  user             User        @relation(fields: [userId], references: [id], onDelete: Cascade, onUpdate: Cascade)
+  id               String   @id @default(cuid())
+  userId           String   @unique
+  user             User     @relation(fields: [userId], references: [id], onDelete: Cascade, onUpdate: Cascade)
   // Removed rate fields for MVP
   hourlyRate       Float?
   perMinuteRate    Float?
   availabilityJson String?
-  specialties      Specialty[] @default([])
-  isVerified       Boolean     @default(false)
-  averageRating    Float       @default(0.0)
-  totalReviews     Int         @default(0)
-  createdAt        DateTime    @default(now())
-  updatedAt        DateTime    @updatedAt
+  specialties      String[] @default([])
+  isVerified       Boolean  @default(false)
+  averageRating    Float    @default(0.0)
+  totalReviews     Int      @default(0)
+  createdAt        DateTime @default(now())
+  updatedAt        DateTime @updatedAt
 
   @@map("friends")
 }

@@ -73,17 +73,6 @@ export const Gender: {
 export type Gender = (typeof Gender)[keyof typeof Gender]
 
 
-export const Specialty: {
-  EMOTIONAL_SUPPORT: 'EMOTIONAL_SUPPORT',
-  CAREER_ADVICE: 'CAREER_ADVICE',
-  LIFE_COACHING: 'LIFE_COACHING',
-  STRESS_MANAGEMENT: 'STRESS_MANAGEMENT',
-  MINDFULNESS: 'MINDFULNESS'
-};
-
-export type Specialty = (typeof Specialty)[keyof typeof Specialty]
-
-
 export const SessionStatus: {
   PENDING: 'PENDING',
   ACTIVE: 'ACTIVE',
@@ -122,10 +111,6 @@ export const UserRole: typeof $Enums.UserRole
 export type Gender = $Enums.Gender
 
 export const Gender: typeof $Enums.Gender
-
-export type Specialty = $Enums.Specialty
-
-export const Specialty: typeof $Enums.Specialty
 
 export type SessionStatus = $Enums.SessionStatus
 
@@ -4284,7 +4269,7 @@ export namespace Prisma {
     hourlyRate: number | null
     perMinuteRate: number | null
     availabilityJson: string | null
-    specialties: $Enums.Specialty[]
+    specialties: string[]
     isVerified: boolean
     averageRating: number
     totalReviews: number
@@ -4392,7 +4377,7 @@ export namespace Prisma {
       hourlyRate: number | null
       perMinuteRate: number | null
       availabilityJson: string | null
-      specialties: $Enums.Specialty[]
+      specialties: string[]
       isVerified: boolean
       averageRating: number
       totalReviews: number
@@ -4827,7 +4812,7 @@ export namespace Prisma {
     readonly hourlyRate: FieldRef<"Friend", 'Float'>
     readonly perMinuteRate: FieldRef<"Friend", 'Float'>
     readonly availabilityJson: FieldRef<"Friend", 'String'>
-    readonly specialties: FieldRef<"Friend", 'Specialty[]'>
+    readonly specialties: FieldRef<"Friend", 'String[]'>
     readonly isVerified: FieldRef<"Friend", 'Boolean'>
     readonly averageRating: FieldRef<"Friend", 'Float'>
     readonly totalReviews: FieldRef<"Friend", 'Int'>
@@ -10047,20 +10032,6 @@ export namespace Prisma {
 
 
   /**
-   * Reference to a field of type 'Specialty[]'
-   */
-  export type ListEnumSpecialtyFieldRefInput<$PrismaModel> = FieldRefInputType<$PrismaModel, 'Specialty[]'>
-    
-
-
-  /**
-   * Reference to a field of type 'Specialty'
-   */
-  export type EnumSpecialtyFieldRefInput<$PrismaModel> = FieldRefInputType<$PrismaModel, 'Specialty'>
-    
-
-
-  /**
    * Reference to a field of type 'Boolean'
    */
   export type BooleanFieldRefInput<$PrismaModel> = FieldRefInputType<$PrismaModel, 'Boolean'>
@@ -10297,7 +10268,7 @@ export namespace Prisma {
     hourlyRate?: FloatNullableFilter<"Friend"> | number | null
     perMinuteRate?: FloatNullableFilter<"Friend"> | number | null
     availabilityJson?: StringNullableFilter<"Friend"> | string | null
-    specialties?: EnumSpecialtyNullableListFilter<"Friend">
+    specialties?: StringNullableListFilter<"Friend">
     isVerified?: BoolFilter<"Friend"> | boolean
     averageRating?: FloatFilter<"Friend"> | number
     totalReviews?: IntFilter<"Friend"> | number
@@ -10330,7 +10301,7 @@ export namespace Prisma {
     hourlyRate?: FloatNullableFilter<"Friend"> | number | null
     perMinuteRate?: FloatNullableFilter<"Friend"> | number | null
     availabilityJson?: StringNullableFilter<"Friend"> | string | null
-    specialties?: EnumSpecialtyNullableListFilter<"Friend">
+    specialties?: StringNullableListFilter<"Friend">
     isVerified?: BoolFilter<"Friend"> | boolean
     averageRating?: FloatFilter<"Friend"> | number
     totalReviews?: IntFilter<"Friend"> | number
@@ -10367,7 +10338,7 @@ export namespace Prisma {
     hourlyRate?: FloatNullableWithAggregatesFilter<"Friend"> | number | null
     perMinuteRate?: FloatNullableWithAggregatesFilter<"Friend"> | number | null
     availabilityJson?: StringNullableWithAggregatesFilter<"Friend"> | string | null
-    specialties?: EnumSpecialtyNullableListFilter<"Friend">
+    specialties?: StringNullableListFilter<"Friend">
     isVerified?: BoolWithAggregatesFilter<"Friend"> | boolean
     averageRating?: FloatWithAggregatesFilter<"Friend"> | number
     totalReviews?: IntWithAggregatesFilter<"Friend"> | number
@@ -10871,7 +10842,7 @@ export namespace Prisma {
     hourlyRate?: number | null
     perMinuteRate?: number | null
     availabilityJson?: string | null
-    specialties?: FriendCreatespecialtiesInput | $Enums.Specialty[]
+    specialties?: FriendCreatespecialtiesInput | string[]
     isVerified?: boolean
     averageRating?: number
     totalReviews?: number
@@ -10886,7 +10857,7 @@ export namespace Prisma {
     hourlyRate?: number | null
     perMinuteRate?: number | null
     availabilityJson?: string | null
-    specialties?: FriendCreatespecialtiesInput | $Enums.Specialty[]
+    specialties?: FriendCreatespecialtiesInput | string[]
     isVerified?: boolean
     averageRating?: number
     totalReviews?: number
@@ -10899,7 +10870,7 @@ export namespace Prisma {
     hourlyRate?: NullableFloatFieldUpdateOperationsInput | number | null
     perMinuteRate?: NullableFloatFieldUpdateOperationsInput | number | null
     availabilityJson?: NullableStringFieldUpdateOperationsInput | string | null
-    specialties?: FriendUpdatespecialtiesInput | $Enums.Specialty[]
+    specialties?: FriendUpdatespecialtiesInput | string[]
     isVerified?: BoolFieldUpdateOperationsInput | boolean
     averageRating?: FloatFieldUpdateOperationsInput | number
     totalReviews?: IntFieldUpdateOperationsInput | number
@@ -10914,7 +10885,7 @@ export namespace Prisma {
     hourlyRate?: NullableFloatFieldUpdateOperationsInput | number | null
     perMinuteRate?: NullableFloatFieldUpdateOperationsInput | number | null
     availabilityJson?: NullableStringFieldUpdateOperationsInput | string | null
-    specialties?: FriendUpdatespecialtiesInput | $Enums.Specialty[]
+    specialties?: FriendUpdatespecialtiesInput | string[]
     isVerified?: BoolFieldUpdateOperationsInput | boolean
     averageRating?: FloatFieldUpdateOperationsInput | number
     totalReviews?: IntFieldUpdateOperationsInput | number
@@ -10928,7 +10899,7 @@ export namespace Prisma {
     hourlyRate?: number | null
     perMinuteRate?: number | null
     availabilityJson?: string | null
-    specialties?: FriendCreatespecialtiesInput | $Enums.Specialty[]
+    specialties?: FriendCreatespecialtiesInput | string[]
     isVerified?: boolean
     averageRating?: number
     totalReviews?: number
@@ -10941,7 +10912,7 @@ export namespace Prisma {
     hourlyRate?: NullableFloatFieldUpdateOperationsInput | number | null
     perMinuteRate?: NullableFloatFieldUpdateOperationsInput | number | null
     availabilityJson?: NullableStringFieldUpdateOperationsInput | string | null
-    specialties?: FriendUpdatespecialtiesInput | $Enums.Specialty[]
+    specialties?: FriendUpdatespecialtiesInput | string[]
     isVerified?: BoolFieldUpdateOperationsInput | boolean
     averageRating?: FloatFieldUpdateOperationsInput | number
     totalReviews?: IntFieldUpdateOperationsInput | number
@@ -10955,7 +10926,7 @@ export namespace Prisma {
     hourlyRate?: NullableFloatFieldUpdateOperationsInput | number | null
     perMinuteRate?: NullableFloatFieldUpdateOperationsInput | number | null
     availabilityJson?: NullableStringFieldUpdateOperationsInput | string | null
-    specialties?: FriendUpdatespecialtiesInput | $Enums.Specialty[]
+    specialties?: FriendUpdatespecialtiesInput | string[]
     isVerified?: BoolFieldUpdateOperationsInput | boolean
     averageRating?: FloatFieldUpdateOperationsInput | number
     totalReviews?: IntFieldUpdateOperationsInput | number
@@ -11525,14 +11496,6 @@ export namespace Prisma {
     gt?: number | FloatFieldRefInput<$PrismaModel>
     gte?: number | FloatFieldRefInput<$PrismaModel>
     not?: NestedFloatNullableFilter<$PrismaModel> | number | null
-  }
-
-  export type EnumSpecialtyNullableListFilter<$PrismaModel = never> = {
-    equals?: $Enums.Specialty[] | ListEnumSpecialtyFieldRefInput<$PrismaModel> | null
-    has?: $Enums.Specialty | EnumSpecialtyFieldRefInput<$PrismaModel> | null
-    hasEvery?: $Enums.Specialty[] | ListEnumSpecialtyFieldRefInput<$PrismaModel>
-    hasSome?: $Enums.Specialty[] | ListEnumSpecialtyFieldRefInput<$PrismaModel>
-    isEmpty?: boolean
   }
 
   export type BoolFilter<$PrismaModel = never> = {
@@ -12379,7 +12342,7 @@ export namespace Prisma {
   }
 
   export type FriendCreatespecialtiesInput = {
-    set: $Enums.Specialty[]
+    set: string[]
   }
 
   export type UserCreateNestedOneWithoutFriendProfileInput = {
@@ -12397,8 +12360,8 @@ export namespace Prisma {
   }
 
   export type FriendUpdatespecialtiesInput = {
-    set?: $Enums.Specialty[]
-    push?: $Enums.Specialty | $Enums.Specialty[]
+    set?: string[]
+    push?: string | string[]
   }
 
   export type BoolFieldUpdateOperationsInput = {
@@ -13031,7 +12994,7 @@ export namespace Prisma {
     hourlyRate?: number | null
     perMinuteRate?: number | null
     availabilityJson?: string | null
-    specialties?: FriendCreatespecialtiesInput | $Enums.Specialty[]
+    specialties?: FriendCreatespecialtiesInput | string[]
     isVerified?: boolean
     averageRating?: number
     totalReviews?: number
@@ -13044,7 +13007,7 @@ export namespace Prisma {
     hourlyRate?: number | null
     perMinuteRate?: number | null
     availabilityJson?: string | null
-    specialties?: FriendCreatespecialtiesInput | $Enums.Specialty[]
+    specialties?: FriendCreatespecialtiesInput | string[]
     isVerified?: boolean
     averageRating?: number
     totalReviews?: number
@@ -13350,7 +13313,7 @@ export namespace Prisma {
     hourlyRate?: NullableFloatFieldUpdateOperationsInput | number | null
     perMinuteRate?: NullableFloatFieldUpdateOperationsInput | number | null
     availabilityJson?: NullableStringFieldUpdateOperationsInput | string | null
-    specialties?: FriendUpdatespecialtiesInput | $Enums.Specialty[]
+    specialties?: FriendUpdatespecialtiesInput | string[]
     isVerified?: BoolFieldUpdateOperationsInput | boolean
     averageRating?: FloatFieldUpdateOperationsInput | number
     totalReviews?: IntFieldUpdateOperationsInput | number
@@ -13363,7 +13326,7 @@ export namespace Prisma {
     hourlyRate?: NullableFloatFieldUpdateOperationsInput | number | null
     perMinuteRate?: NullableFloatFieldUpdateOperationsInput | number | null
     availabilityJson?: NullableStringFieldUpdateOperationsInput | string | null
-    specialties?: FriendUpdatespecialtiesInput | $Enums.Specialty[]
+    specialties?: FriendUpdatespecialtiesInput | string[]
     isVerified?: BoolFieldUpdateOperationsInput | boolean
     averageRating?: FloatFieldUpdateOperationsInput | number
     totalReviews?: IntFieldUpdateOperationsInput | number
