@@ -168,6 +168,6 @@ const  updateMyFriendDetails = async (req: Request, res: Response, next: NextFun
           pagination: { currentPage: pageNum, totalPages: Math.ceil(totalFriends / limitNum), totalItems: totalFriends, limit: limitNum }
       });
     } catch (error) { console.error("Search Friends Error:", error); next(error); }
-  },
+  }
 
   export { updateMyFriendDetails, friendController, searchFriends };
