@@ -1,4 +1,4 @@
-import {PrismaClient, Gender}  from "../generated/prisma/client.js";
+import {PrismaClient, Gender, UserRole, Prisma}  from "../generated/prisma/client.js";
 
  const prismaClient = new PrismaClient();
-export {prismaClient, Gender}
+export {prismaClient, Gender, UserRole, Prisma}

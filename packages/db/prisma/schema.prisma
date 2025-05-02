@@ -9,39 +9,38 @@ datasource db {
 }
 
 model User {
-  id           String   @id @default(cuid()) // Unique identifier
-  email        String   @unique // Unique email for login
-  passwordHash String // Store hashed passwords, never plain text
-  role         UserRole @default(SEEKER) // Role determines capabilities (Seeker or Friend)
-  createdAt    DateTime @default(now()) // Timestamp for account creation
-  updatedAt    DateTime @updatedAt // Timestamp for last update
+  id           String   @id @default(cuid())
+  email        String   @unique
+  passwordHash String
+  role         UserRole @default(SEEKER)
+  createdAt    DateTime @default(now())
+  updatedAt    DateTime @updatedAt
 
   // Relationships
-  profile          Profile? // One-to-one relationship with Profile
-  friendProfile    Friend? // One-to-one relationship if the user is also a Friend
-  sessionsAsSeeker Session[] @relation("SeekerSessions") // Sessions where this user is the seeker
-  sessionsAsFriend Session[] @relation("FriendSessions") // Sessions where this user is the friend
-  reviewsGiven     Review[]  @relation("ReviewsGiven") // Reviews written by this user
-  reviewsReceived  Review[]  @relation("ReviewsReceived") // Reviews received by this user (if they are a Friend)
+  profile          Profile?
+  friendProfile    Friend?
+  sessionsAsSeeker Session[] @relation("SeekerSessions")
+  sessionsAsFriend Session[] @relation("FriendSessions")
+  reviewsGiven     Review[]  @relation("ReviewsGiven")
+  reviewsReceived  Review[]  @relation("ReviewsReceived")
   // Removed payments and subscriptions for MVP
   // payments       Payment[]
   // subscriptions  Subscription[]
-  reportsMade      Report[]  @relation("ReportsMade") // Reports filed by this user
-  reportsReceived  Report[]  @relation("ReportsReceived") // Reports filed against this user
-  blocksMade       Block[]   @relation("BlocksMade") // Users blocked by this user
-  blocksReceived   Block[]   @relation("BlocksReceived") // Users who blocked this user
+  reportsMade      Report[]  @relation("ReportsMade")
+  reportsReceived  Report[]  @relation("ReportsReceived")
+  blocksMade       Block[]   @relation("BlocksMade")
+  blocksReceived   Block[]   @relation("BlocksReceived")
 
-  @@map("users") // Optional: Define the underlying table name
+  @@map("users")
 }
 
 // Enum for User Roles
 enum UserRole {
-  SEEKER // User looking for companionship
-  FRIEND // User offering companionship
-  ADMIN // Platform administrator (optional)
+  SEEKER
+  FRIEND
+  ADMIN
 }
 
-// Enum for Gender Identity
 enum Gender {
   MALE
   FEMALE
@@ -50,40 +49,35 @@ enum Gender {
   PREFER_NOT_TO_SAY
 }
 
-// Profile model linked to User, holding common details
 model Profile {
   id          String   @id @default(cuid())
-  userId      String   @unique // Foreign key linking to the User model
-  // If User ID changes (unlikely with cuid), update Profile. If User deleted, delete Profile.
+  userId      String   @unique
   user        User     @relation(fields: [userId], references: [id], onDelete: Cascade, onUpdate: Cascade)
-  displayName String? // Optional display name
-  bio         String? // User's biography or description
-  gender      Gender? // Optional: User's gender identity
-  interests   String[] @default([]) // List of user interests (tags, keywords)
-  avatarUrl   String? // URL to the user's avatar image
+  displayName String?
+  bio         String?
+  gender      Gender?
+  interests   String[] @default([])
+  avatarUrl   String?
   createdAt   DateTime @default(now())
   updatedAt   DateTime @updatedAt
 
   @@map("profiles")
 }
 
-
-
 model Friend {
-  id               String      @id @default(cuid())
-  userId           String      @unique 
-  user             User        @relation(fields: [userId], references: [id], onDelete: Cascade, onUpdate: Cascade)
+  id               String   @id @default(cuid())
+  userId           String   @unique
+  user             User     @relation(fields: [userId], references: [id], onDelete: Cascade, onUpdate: Cascade)
   // Removed rate fields for MVP
   hourlyRate       Float?
   perMinuteRate    Float?
-  availabilityJson String? 
-  specialties      String[] @default([]) 
-  isVerified       Boolean     @default(false) 
-  averageRating    Float       @default(0.0) 
-  totalReviews     Int         @default(0)
-  createdAt        DateTime    @default(now())
-  updatedAt        DateTime    @updatedAt
-
+  availabilityJson String?
+  specialties      String[] @default([])
+  isVerified       Boolean  @default(false)
+  averageRating    Float    @default(0.0)
+  totalReviews     Int      @default(0)
+  createdAt        DateTime @default(now())
+  updatedAt        DateTime @updatedAt
 
   @@map("friends")
 }
@@ -93,7 +87,7 @@ model Friend {
 // Session model tracking interactions between a Seeker and a Friend
 model Session {
   id                String            @id @default(cuid())
-  seekerId          String 
+  seekerId          String
   // If Seeker User ID changes, update Session. If Seeker User deleted, delete Session.
   seeker            User              @relation("SeekerSessions", fields: [seekerId], references: [id], onDelete: Cascade, onUpdate: Cascade)
   friendId          String // Foreign key for the friend User
@@ -112,7 +106,6 @@ model Session {
   // Relationships
   reviews Review[] // Reviews associated with this session
   reports Report[]
-
 
   @@map("sessions")
 }
@@ -133,22 +126,18 @@ enum CommunicationType {
 
 model Review {
   id         String   @id @default(cuid())
-  sessionId  String? // Optional: Link review directly to a session
-  // If Session deleted, set sessionId to null (optional). If Session ID changes, update.
+  sessionId  String?
   session    Session? @relation(fields: [sessionId], references: [id], onDelete: SetNull, onUpdate: Cascade)
-  reviewerId String // Foreign key for the User who wrote the review
-  // If Reviewer User ID changes, update Review. If Reviewer User deleted, delete Review.
+  reviewerId String
   reviewer   User     @relation("ReviewsGiven", fields: [reviewerId], references: [id], onDelete: Cascade, onUpdate: Cascade)
-  friendId   String // Foreign key for the User (Friend) being reviewed
-  // If Friend User ID changes, update Review. If Friend User deleted, delete Review.
+  friendId   String
   friend     User     @relation("ReviewsReceived", fields: [friendId], references: [id], onDelete: Cascade, onUpdate: Cascade)
-  rating     Int // Rating score (e.g., 1-5)
-  comment    String? // Optional text comment
+  rating     Int
+  comment    String?
   createdAt  DateTime @default(now())
   updatedAt  DateTime @updatedAt
 
-
-  @@unique([sessionId, reviewerId]) // Ensure a user reviews a session only once
+  @@unique([sessionId, reviewerId])
   @@map("reviews")
 }
 
@@ -157,23 +146,20 @@ model Review {
 
 // --- Safety & Moderation Models ---
 
-// Report model for users reporting issues
 model Report {
-  id             String       @id @default(cuid())
-  reporterId     String // Foreign key for the User filing the report
-  // If Reporter User ID changes, update Report. If Reporter User deleted, delete Report.
-  reporter       User         @relation("ReportsMade", fields: [reporterId], references: [id], onDelete: Cascade, onUpdate: Cascade)
-  reportedUserId String // Foreign key for the User being reported
-  // If Reported User ID changes, update Report. If Reported User deleted, delete Report.
-  reportedUser   User         @relation("ReportsReceived", fields: [reportedUserId], references: [id], onDelete: Cascade, onUpdate: Cascade)
-  sessionId      String? // Optional: Link report to a specific session
-  // If Session deleted, set sessionId to null (optional). If Session ID changes, update.
-  session        Session?     @relation(fields: [sessionId], references: [id], onDelete: SetNull, onUpdate: Cascade)
-  reason         String // Reason for the report
-  details        String? // Additional details
-  status         ReportStatus @default(SUBMITTED) // Status of the report review
-  createdAt      DateTime     @default(now())
-  updatedAt      DateTime     @updatedAt
+  id             String @id @default(cuid())
+  reporterId     String
+  reporter       User   @relation("ReportsMade", fields: [reporterId], references: [id], onDelete: Cascade, onUpdate: Cascade)
+  reportedUserId String
+
+  reportedUser User         @relation("ReportsReceived", fields: [reportedUserId], references: [id], onDelete: Cascade, onUpdate: Cascade)
+  sessionId    String?
+  session      Session?     @relation(fields: [sessionId], references: [id], onDelete: SetNull, onUpdate: Cascade)
+  reason       String
+  details      String?
+  status       ReportStatus @default(SUBMITTED)
+  createdAt    DateTime     @default(now())
+  updatedAt    DateTime     @updatedAt
 
   @@map("reports")
 }
@@ -189,14 +175,12 @@ enum ReportStatus {
 // Block model for users blocking each other
 model Block {
   id            String   @id @default(cuid())
-  blockerId     String // Foreign key for the User initiating the block
-  // If Blocker User ID changes, update Block. If Blocker User deleted, delete Block.
+  blockerId     String
   blocker       User     @relation("BlocksMade", fields: [blockerId], references: [id], onDelete: Cascade, onUpdate: Cascade)
-  blockedUserId String // Foreign key for the User being blocked
-  // If Blocked User ID changes, update Block. If Blocked User deleted, delete Block.
+  blockedUserId String
   blockedUser   User     @relation("BlocksReceived", fields: [blockedUserId], references: [id], onDelete: Cascade, onUpdate: Cascade)
   createdAt     DateTime @default(now())
 
-  @@unique([blockerId, blockedUserId]) // Prevent duplicate blocks
+  @@unique([blockerId, blockedUserId])
   @@map("blocks")
 }
