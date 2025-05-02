@@ -8,7 +8,7 @@ export const generateToken = (userId: string, role: "SEEKER" | "FRIEND") => {
     expiresIn: "1d",
   });
 };
-process.env.JWT_KEY;
+
 const registerSeeker = async (
   req: Request,
   res: Response,
