@@ -125,5 +125,49 @@ const  updateMyFriendDetails = async (req: Request, res: Response, next: NextFun
     }
   }
 
+ const  searchFriends = async (req: Request, res: Response, next: NextFunction) => {
+    try {
+    
+      const { interests, specialties, gender, minRating, page = 1, limit = 20 } = req.query;
+      const pageNum = Math.max(1, parseInt(page as string, 10));
+      const limitNum = Math.max(1, parseInt(limit as string, 10));
+      const skip = (pageNum - 1) * limitNum;
 
-  export { updateMyFriendDetails, friendController };
+      const whereClause: Prisma.FriendWhereInput = { user: { role: UserRole.FRIEND } };
+      const profileWhere: Prisma.ProfileWhereInput = {};
+
+      if (specialties && typeof specialties === 'string') {
+          const specialtiesArray = specialties.split(',').map(s => s.trim()).filter(s => s);
+          if (specialtiesArray.length > 0) whereClause.specialties = { hasSome: specialtiesArray };
+      }
+       if (minRating && typeof minRating === 'string') {
+          const ratingNum = parseFloat(minRating);
+          if (!isNaN(ratingNum)) whereClause.averageRating = { gte: ratingNum };
+      }
+      if (interests && typeof interests === 'string') {
+          const interestsArray = interests.split(',').map(s => s.trim()).filter(s => s);
+          if (interestsArray.length > 0) profileWhere.interests = { hasSome: interestsArray };
+      }
+      if (gender && typeof gender === 'string' && Object.values(Gender).includes(gender as Gender)) {
+          profileWhere.gender = gender as Gender;
+      }
+      if (Object.keys(profileWhere).length > 0) {
+          (whereClause.user as Prisma.UserWhereInput).profile = profileWhere;
+      }
+
+
+      const friends = await prismaClient.friend.findMany({
+          where: whereClause,
+          select: { userId: true, specialties: true, isVerified: true, averageRating: true, totalReviews: true, user: { select: { profile: { select: { displayName: true, bio: true, gender: true, interests: true, avatarUrl: true } } } } },
+          skip: skip, take: limitNum, orderBy: { averageRating: 'desc' }
+      });
+      const totalFriends = await prismaClient.friend.count({ where: whereClause });
+
+      res.status(200).json({
+          data: friends,
+          pagination: { currentPage: pageNum, totalPages: Math.ceil(totalFriends / limitNum), totalItems: totalFriends, limit: limitNum }
+      });
+    } catch (error) { console.error("Search Friends Error:", error); next(error); }
+  },
+
+  export { updateMyFriendDetails, friendController, searchFriends };
