@@ -73,7 +73,7 @@ const registerFriend = async (
 
     const passwordHash = bcrypt.hashSync(password, 10);
 
-    let validatedSpecialties: string[] = []; // Now expects string array
+    let validatedSpecialties: string[] = []; 
     if (specialties) {
       if (!Array.isArray(specialties)) {
         res.status(400).json({

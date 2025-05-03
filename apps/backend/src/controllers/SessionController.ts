@@ -16,7 +16,8 @@ const createSession = async (
     const seekerId = (req as any).user?.id;
     const seekerRole = (req as any).user?.role;
     if (!seekerId || seekerRole !== UserRole.SEEKER) {
-      return res.status(403).json({ message: "Forbidden" });
+      res.status(403).json({ message: "Forbidden" });
+      return;
     }
 
     // 1. VALIDATE input - Use validation library!
@@ -25,26 +26,29 @@ const createSession = async (
     const { friendId, communicationType } = body;
 
     if (!friendId || !communicationType) {
-      return res
+      res
         .status(400)
         .json({ message: "Friend ID and communication type required." });
+      return;
     }
-    if (!Object.values(CommunicationType).includes(communicationType)) {
-      return res.status(400).json({ message: "Invalid communication type." });
+    const normalize = communicationType.toUpperCase()
+    if (!Object.values(CommunicationType).includes(normalize)) {
+      res.status(400).json({ message: "Invalid communication type." });
+      return;
     }
     if (seekerId === friendId) {
-      return res
-        .status(400)
-        .json({ message: "Cannot start session with yourself" });
+      res.status(400).json({ message: "Cannot start session with yourself" });
+      return;
     }
 
     const friendUser = await prismaClient.user.findUnique({
       where: { id: friendId },
     });
     if (!friendUser || friendUser.role !== UserRole.FRIEND) {
-      return res.status(404).json({ message: "Friend user not found." });
+      res.status(404).json({ message: "Friend user not found." });
+      return;
     }
-    // TODO: Check Friend availability
+
     const friendAvailbility = await prismaClient.friend.findFirst({
       where: { id: friendId },
     });
@@ -54,7 +58,7 @@ const createSession = async (
     }
 
     const newSession = await prismaClient.session.create({
-      data: { seekerId, friendId, status: "PENDING", communicationType },
+      data: { seekerId, friendId, status: "PENDING", communicationType: normalize },
       include: {
         seeker: {
           select: {
@@ -87,7 +91,10 @@ const updateSessionStatus = async (
 ) => {
   try {
     const userId = (req as any).user?.id;
-    if (!userId) return res.status(401).json({ message: "Unauthorized" });
+    if (!userId) {
+      res.status(401).json({ message: "Unauthorized" });
+      return;
+    }
     const { sessionId } = req.params;
 
     // 1. VALIDATE input - Use validation library!
@@ -95,22 +102,29 @@ const updateSessionStatus = async (
     const body = req.body; // Using type assertion
     const { status } = body;
 
-    if (!status)
-      return res.status(400).json({ message: "New status is required." });
-
-    if (!["ACTIVE", "COMPLETED", "CANCELLED"].includes(status)) {
-      return res.status(400).json({ message: "Invalid status value." });
+    if (!status) {
+      res.status(400).json({ message: "New status is required." });
+      return;
     }
-    const newStatus = status as SessionStatus; // Cast after validation
+    const newStatus = status.toUpperCase() as SessionStatus;
+    if (!["ACTIVE", "COMPLETED", "CANCELLED"].includes(newStatus)) {
+      res.status(400).json({ message: "Invalid status value." });
+      return;
+      
+    }
+     // Cast after validation
 
-    // 2. Fetch session & authorize
     const session = await prismaClient.session.findUnique({
       where: { id: sessionId },
     });
-    if (!session) return res.status(404).json({ message: "Session not found" });
-    if (userId !== session.seekerId && userId !== session.friendId)
-      return res.status(403).json({ message: "Forbidden" });
-
+    if (!session) {
+      res.status(404).json({ message: "Session not found" });
+      return;
+    }
+    if (userId !== session.seekerId && userId !== session.friendId) {
+      res.status(403).json({ message: "Forbidden" });
+      return;
+    }
     let canUpdate = false;
     const currentStatus = session.status;
     const allowedTransitions: { [key in SessionStatus]?: SessionStatus[] } = {
@@ -133,11 +147,12 @@ const updateSessionStatus = async (
         canUpdate = true;
     }
     if (!canUpdate)
-      return res
-        .status(400)
-        .json({
-          message: `Invalid transition from ${currentStatus} to ${newStatus}`,
-        });
+       {res.status(400).json({
+        message: `Invalid transition from ${currentStatus} to ${newStatus}`,
+        
+      });
+      return;
+    }
 
     const updateData: Prisma.SessionUpdateInput = { status: newStatus };
     let endTime: Date | undefined = undefined;
@@ -178,35 +193,70 @@ const updateSessionStatus = async (
   }
 };
 
+const getUserSessions = async (
+  req: Request,
+  res: Response,
+  next: NextFunction
+) => {
+  try {
+    const userId = (req as any).user?.id;
+    if (!userId) {
+      res.status(401).json({ message: "Unauthorized" });
+      return;
+    }
 
+    const { status, role, page = 1, limit = 20 } = req.query;
+    const pageNum = Math.max(1, parseInt(page as string, 10));
+    const limitNum = Math.max(1, parseInt(limit as string, 10));
+    const skip = (pageNum - 1) * limitNum;
 
-const getUserSessions = async (req: Request, res: Response, next: NextFunction) => {
-    try {
-        const userId = (req as any).user?.id; 
-        if (!userId) return res.status(401).json({ message: 'Unauthorized' });
+    const whereClause: Prisma.SessionWhereInput = {};
+    if (
+      status &&
+      Object.values(SessionStatus).includes(status as SessionStatus)
+    )
+      whereClause.status = status as SessionStatus;
+    if (role === "seeker") whereClause.seekerId = userId;
+    else if (role === "friend") whereClause.friendId = userId;
+    else whereClause.OR = [{ seekerId: userId }, { friendId: userId }];
 
+    const sessions = await prismaClient.session.findMany({
+      where: whereClause,
+      orderBy: { createdAt: "desc" },
+      include: {
+        seeker: {
+          select: {
+            id: true,
+            profile: { select: { displayName: true, avatarUrl: true } },
+          },
+        },
+        friend: {
+          select: {
+            id: true,
+            profile: { select: { displayName: true, avatarUrl: true } },
+          },
+        },
+      },
+      skip: skip,
+      take: limitNum,
+    });
+    const totalSessions = await prismaClient.session.count({
+      where: whereClause,
+    });
 
-        const { status, role, page = 1, limit = 20 } = req.query;
-        const pageNum = Math.max(1, parseInt(page as string, 10));
-        const limitNum = Math.max(1, parseInt(limit as string, 10));
-        const skip = (pageNum - 1) * limitNum;
-
-        const whereClause: Prisma.SessionWhereInput = {};
-        if (status && Object.values(SessionStatus).includes(status as SessionStatus)) whereClause.status = status as SessionStatus;
-        if (role === 'seeker') whereClause.seekerId = userId;
-        else if (role === 'friend') whereClause.friendId = userId;
-        else whereClause.OR = [ { seekerId: userId }, { friendId: userId } ];
-
-      
-        const sessions = await prismaClient.session.findMany({ where: whereClause, orderBy: { createdAt: 'desc' }, include: { seeker: { select: { id: true, profile: { select: { displayName: true, avatarUrl: true }} } }, friend: { select: { id: true, profile: { select: { displayName: true, avatarUrl: true }} } }, }, skip: skip, take: limitNum });
-        const totalSessions = await prismaClient.session.count({ where: whereClause });
-
-
-        res.status(200).json({ data: sessions, pagination: { currentPage: pageNum, totalPages: Math.ceil(totalSessions / limitNum), totalItems: totalSessions, limit: limitNum } });
-    } catch (error) { 
-        console.error("Get User Sessions Error:", error);
-         next(error); 
-        }
-}
+    res.status(200).json({
+      data: sessions,
+      pagination: {
+        currentPage: pageNum,
+        totalPages: Math.ceil(totalSessions / limitNum),
+        totalItems: totalSessions,
+        limit: limitNum,
+      },
+    });
+  } catch (error) {
+    console.error("Get User Sessions Error:", error);
+    next(error);
+  }
+};
 
 export { createSession, updateSessionStatus, getUserSessions };

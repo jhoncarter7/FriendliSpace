@@ -8,7 +8,6 @@ export const authMiddleware = async (req:Request, res:Response, next:NextFunctio
         res.status(401).json({message: "Unauthorized"});
         return;
     }
-
     try {
         const decode = jwt.verify(token, process.env.JWT_KEY) as jwt.JwtPayload;
 
@@ -18,7 +17,7 @@ export const authMiddleware = async (req:Request, res:Response, next:NextFunctio
         }
         const user = await prismaClient.user.findUnique({
             where: { id: decode?.userId },
-            select: { id: true, email: true, passwordHash: false}, 
+            select: { id: true, email: true, passwordHash: false, role: true}, 
         });
 
         if (!user) {

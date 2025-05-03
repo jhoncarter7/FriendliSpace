@@ -9,9 +9,10 @@ const getCurrentUserProfile = async (
   try {
     const userId = (req as any).user?.id;
     if (!userId) {
-      return res
+      res
         .status(401)
         .json({ message: "Unauthorized: No user ID found in request." });
+      return;
     }
 
     const userProfile = await prismaClient.user.findUnique({
@@ -28,7 +29,8 @@ const getCurrentUserProfile = async (
     });
 
     if (!userProfile) {
-      return res.status(404).json({ message: "User profile not found." });
+      res.status(404).json({ message: "User profile not found." });
+      return;
     }
 
     res.status(200).json(userProfile);
@@ -38,15 +40,17 @@ const getCurrentUserProfile = async (
   }
 };
 
- const updateCurrentUserProfile = async (
+const updateCurrentUserProfile = async (
   req: Request,
   res: Response,
   next: NextFunction
 ) => {
   try {
     const userId = (req as any).user?.id;
+    console.log("profile update");
     if (!userId) {
-      return res.status(401).json({ message: "Unauthorized" });
+      res.status(401).json({ message: "Unauthorized" });
+      return;
     }
 
     const { displayName, bio, gender, interests, avatarUrl } = req.body;
@@ -54,14 +58,15 @@ const getCurrentUserProfile = async (
 
     if (displayName !== undefined) profileData.displayName = displayName;
     if (bio !== undefined) profileData.bio = bio;
-
+    
     if (gender !== undefined) {
-      if (Object.values(Gender).includes(gender as Gender)) {
-        profileData.gender = gender as Gender;
+      const normalized = gender.toUpperCase() as Gender;
+      if (Object.values(Gender).includes(normalized)) {
+        profileData.gender =normalized;
       } else {
         console.warn("Invalid gender value provided:", gender);
 
-        res.status(400).json({ message: "Invalid gender value." });
+        res.status(400).json({ message: "Invalid gender value.", gender });
       }
     }
 
@@ -72,7 +77,7 @@ const getCurrentUserProfile = async (
       ) {
         profileData.interests = interests
           .map((i) => i.trim())
-          .filter((i) => i.length > 0); // Trim and remove empty strings
+          .filter((i) => i.length > 0); 
       } else {
         console.warn("Invalid interests format provided:", interests);
         res.status(400).json({ message: "Invalid interests format." });
@@ -96,8 +101,8 @@ const getCurrentUserProfile = async (
     });
 
     if (!updatedOrCreatedProfile) {
-       res.status(404).json({ message: "Profile not found." });
-       return;
+      res.status(404).json({ message: "Profile not found." });
+      return;
     }
     res.status(200).json(updatedOrCreatedProfile);
   } catch (error) {
@@ -106,92 +111,49 @@ const getCurrentUserProfile = async (
   }
 };
 
+const getUserProfileById = async (
+  req: Request,
+  res: Response,
+  next: NextFunction
+) => {
+  try {
+    const { userId } = req.params;
+    const publicProfile = await prismaClient.user.findUnique({
+      where: { id: userId },
+      select: {
+        id: true,
+        role: true,
+        createdAt: true,
+        profile: {
+          select: {
+            displayName: true,
+            bio: true,
+            gender: true,
+            interests: true,
+            avatarUrl: true,
+          },
+        },
+        friendProfile: {
+          select: {
+            specialties: true,
+            isVerified: true,
+            averageRating: true,
+            totalReviews: true,
+          },
+        },
+      },
+    });
 
-const getUserProfileById = async (req: Request, res: Response, next: NextFunction) => {
-    try { 
-      const { userId } = req.params;
-      const publicProfile = await prismaClient.user.findUnique({
-        where: { id: userId },
-        select: { 
-            id: true,
-            role: true,
-            createdAt: true,
-            profile: { 
-                select: {
-                    displayName: true,
-                    bio: true,
-                    gender: true,
-                    interests: true,
-                    avatarUrl: true,
-                }
-            },
-            friendProfile: { 
-                select: {
-                    specialties: true,
-                    isVerified: true,
-                    averageRating: true,
-                    totalReviews: true,
-                }
-            }
-        }
-      });
-
-      if (!publicProfile) {
-          return res.status(404).json({ message: 'User not found' }); 
-      }
-
-    
-      res.status(200).json(publicProfile);
-    } catch (error) {
-        console.error("Get User Profile By ID Error:", error);
-        next(error);
+    if (!publicProfile) {
+      res.status(404).json({ message: "User not found" });
+      return;
     }
+
+    res.status(200).json(publicProfile);
+  } catch (error) {
+    console.error("Get User Profile By ID Error:", error);
+    next(error);
   }
+};
 
-
-//   get all friend profiles 
-
-const getAllFriendProfilesByUserId = async (req: Request, res: Response, next: NextFunction) => {
-    try { 
-      const userId = (req as any).user?.id;
-      if (!userId) {
-        return res.status(401).json({ message: "Unauthorized" });
-      }
-      const friendProfiles = await prismaClient.user.findMany({
-        where: { role: "FRIEND"},
-        select: { 
-            id: true,
-            createdAt: true,
-            profile: { 
-                select: {
-                    displayName: true,
-                    bio: true,
-                    gender: true,
-                    interests: true,
-                    avatarUrl: true,
-                }
-            },
-            friendProfile: { 
-                select: {
-                    specialties: true,
-                    isVerified: true,
-                    averageRating: true,
-                    totalReviews: true,
-                }            
-            }
-        }
-      });
-
-      if (!friendProfiles) {
-          return res.status(404).json({ message: 'User not found' }); 
-      }
-
-    
-      res.status(200).json(friendProfiles);
-    } catch (error) {
-        console.error("Get User Profile By ID Error:", error);
-        next(error);
-    }
-}
-
-  export { getCurrentUserProfile, updateCurrentUserProfile, getUserProfileById, getAllFriendProfilesByUserId };
+export { getCurrentUserProfile, updateCurrentUserProfile, getUserProfileById };

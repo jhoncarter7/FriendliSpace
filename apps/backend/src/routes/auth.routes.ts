@@ -3,8 +3,8 @@ import { login, registerFriend, registerSeeker } from "../controllers/AuthContro
 
 const route: Router = Router();
 
-route.post("/register-user", registerSeeker)
-route.post("/register-friend", registerFriend)
+route.post("/register/seeker", registerSeeker)
+route.post("/register/friend", registerFriend)
 route.post("/login", login)
 
 
