@@ -1,17 +1,23 @@
 import { AnimatedTooltipPreview } from "@/components/AnimatedTooltipPreview";
 import { Button } from "@/components/ui/button";
-import { IconPlayerPlay, IconStarFilled } from "@tabler/icons-react";
+import {
+  IconBulb,
+  IconCarambola,
+  IconHearts,
+  IconPlayerPlay,
+  IconStarFilled,
+} from "@tabler/icons-react";
 import Image from "next/image";
 import React from "react";
 
 const Home = () => {
   return (
     <section className="mx-auto container">
-      <div className=" xl:w-1/2 lg:w-4/6 md:w-5/6 w-full mx-auto text-center">
+      <div className=" xl:w-[52%] md:w-4/6 w-full mx-auto text-center">
         <p className="text-xl font-semibold text-gray-600/90 ">
           Begin your healing!!
         </p>
-        <h1 className="text-3xl sm:text-5xl md:text-6xl/snug font-semibold  ">
+        <h1 className="text-3xl sm:text-5xl md:text-6xl/tight font-semibold  ">
           A safe space for healing & personal growth
         </h1>
       </div>
@@ -47,8 +53,53 @@ const Home = () => {
       </div>
 
       <section className="w-[95%] mx-auto overflow-hidden rounded-2xl">
-      <Image alt="" src="/images/hero.avif" width={1920} height={300} className="w-full object-contain h-auto"/>
+        <Image
+          alt=""
+          src="/images/hero.avif"
+          width={1920}
+          height={300}
+          className="w-full object-contain h-auto"
+        />
       </section>
+
+      {/* introduction */}
+      <div className="pt-12 md:pt-22 mx-auto text-center">
+        <p className="text-lg font-semibold text-gray-400/90 pb-4">
+          Introduction
+        </p>
+        <h1 className="text-3xl sm:text-4xl md:text-5xl/tight lg:text-6xl/tight font-semibold  xl:w-[63%] md:9/12 lg:w-5/6 w-full mx-auto">
+          Welcome to a space dedicated to your well-being.
+        </h1>
+        <div className="flex justify-between gap-x-4 w-full sm:w-11/12  lg:w-4/5 mx-auto pt-18">
+          <div className="space-y-4 p-2">
+            <div className="flex items-center justify-center w-12 h-12 bg-[#3B7385] rounded-3xl  mx-auto">
+              <IconHearts className="text-white" strokeWidth={2} size={24} />
+            </div>
+            <p className="text-xl font-medium text-gray-600/90">
+              Training programs and coaching sessions tailored to your workforce
+              & ideas.
+            </p>
+          </div>
+          <div  className="space-y-4 p-2">
+            <div className="flex items-center justify-center w-12 h-12 bg-[#3B7385] rounded-3xl mx-auto">
+              <IconCarambola className="text-white" stroke={2} />
+            </div>
+            <p className="text-xl font-medium text-gray-600/90">
+              Comprehensive and engaging sessions designed to meet the unique
+              needs of team.
+            </p>
+          </div>
+          <div  className="space-y-4 p-2">
+            <div className="flex items-center justify-center w-12 h-12 bg-[#3B7385] rounded-3xl  mx-auto">
+              <IconBulb className="text-white" stroke={2} />
+            </div>
+            <p className="text-xl font-medium text-gray-600/90">
+              Innovative strategies and ideas crafted to individuals and
+              organizational success.
+            </p>
+          </div>
+        </div>
+      </div>
     </section>
   );
 };

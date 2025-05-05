@@ -30,7 +30,7 @@ const NavBar: React.FC = () => {
             <li className="cursor-pointer">Browse</li>
             <li className="cursor-pointer">Dashboard</li>
             <li className="cursor-pointer">Find Friends</li>
-            <li className="cursor-pointer">Find Therapist</li>
+            {/* <li className="cursor-pointer">Find Therapist</li> */}
             <li className="cursor-pointer">My Sessions</li>
           </ul>
         </nav>
