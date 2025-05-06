@@ -1,5 +1,5 @@
-import { AnimatedTooltipPreview } from "@/components/AnimatedTooltipPreview";
-import { Button } from "@/components/ui/button";
+import { AnimatedTooltipPreview } from "./components/AnimatedTooltipPreview";
+import { Button } from "./components/ui/button";
 import {
   IconBulb,
   IconCarambola,
@@ -64,7 +64,7 @@ const Home = () => {
 
       {/* introduction */}
       <div className="pt-12 md:pt-22 mx-auto text-center">
-        <p className="text-lg font-semibold text-gray-400/90 pb-4">
+        <p className="text-lg font-semibold text-gray-400/90 pb-4 " >
           Introduction
         </p>
         <h1 className="text-3xl sm:text-4xl md:text-5xl/tight lg:text-6xl/tight font-semibold  xl:w-[63%] md:9/12 lg:w-5/6 w-full mx-auto">

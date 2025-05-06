@@ -14,7 +14,7 @@ const registerSeeker = async (
   res: Response,
   next: NextFunction
 ) => {
-  const { email, password } = req.body;
+  const { name, email, password } = req.body;
   try {
     if (!email || !password) {
       return next(new Error("fill all input"));
@@ -32,7 +32,7 @@ const registerSeeker = async (
       data: {
         email,
         passwordHash,
-
+        name,
         role: "SEEKER",
       },
     });
@@ -55,7 +55,7 @@ const registerFriend = async (
   next: NextFunction
 ) => {
   try {
-    const { email, password, specialties } = req.body;
+    const {name, email, password, specialties } = req.body;
     const role = "FRIEND";
 
     if (!email || !password || !specialties) {
@@ -73,7 +73,7 @@ const registerFriend = async (
 
     const passwordHash = bcrypt.hashSync(password, 10);
 
-    let validatedSpecialties: string[] = []; 
+    let validatedSpecialties: string[] = [];
     if (specialties) {
       if (!Array.isArray(specialties)) {
         res.status(400).json({
@@ -89,6 +89,7 @@ const registerFriend = async (
     const newUser = await prismaClient.$transaction(async (tx) => {
       const user = await tx.user.create({
         data: {
+          name,
           email,
           passwordHash,
           role,
