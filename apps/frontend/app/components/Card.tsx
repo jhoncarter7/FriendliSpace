@@ -6,35 +6,28 @@ import { Button } from "./ui/button";
 import { useRouter } from "next/navigation";
 
 
-const field = [
-  "emotional support",
-  "Life coaching",
-  "Relationship coaching",
-  "Career coaching",
-  "Personal development",
-];
 
 interface CardProps {
   profileImg: string;
   name: string;
-  rate: number;
+  rating: number;
   sessions: number;
   ratePerMin: number;
   bio: string;
-  specialties: {id:string, name: string;}[];
+  specialties: string[];
 }
 
-const Card: FC<CardProps> = ({ profileImg, name, rate, sessions, ratePerMin, specialties, bio}) => {
+const Card: FC<CardProps> = ({ profileImg, name, rating, sessions, ratePerMin, specialties, bio}) => {
   const navigate = useRouter();
-  console.log("bio", specialties)
+  console.log("bio", rating, ratePerMin)
   return (
     <div className="max-w-md mx-auto bg-white border border-gray-200 rounded-lg shadow dark:bg-gray-800 dark:border-gray-700 p-4 flex flex-col gap-4">
       {/* 1 */}
       <div className="flex gap-2 justify-between">
         <div className="flex gap-x-4">
           <Image
-            alt=""
-            src={profileImg}
+            alt="image"
+            src={profileImg ?? "https://avatar.iran.liara.run/public/24"}
             width={50}
             height={50}
             className="rounded-full w-16 h-16 object-cover"
@@ -43,13 +36,13 @@ const Card: FC<CardProps> = ({ profileImg, name, rate, sessions, ratePerMin, spe
             <h3>{name}</h3>
             <div className="flex gap-x-2 items-center text-sm text-gray-500">
               <IconClock stroke={2} size={16} />
-              <span>${ratePerMin}rate/min</span> .<span>{sessions} sessions</span>
+              <span>${ratePerMin}/min</span> .<span>{sessions ?? 0} sessions</span>
             </div>
           </div>
         </div>
         <div className="flex gap-1 ">
           <IconStarFilled stroke={2} className="text-yellow-400" />
-          <span className="font-semibold">{rate}</span>
+          <span className="font-semibold">{rating}</span>
         </div>
       </div>
 
@@ -61,12 +54,12 @@ const Card: FC<CardProps> = ({ profileImg, name, rate, sessions, ratePerMin, spe
       </div>
       {/* 3 */}
       <div className="flex gap-2 flex-wrap">
-        {specialties.map((item, id) => (
+        {specialties?.map((item, id) => (
           <span
             key={id}
             className="bg-gray-200 px-2 py-1 text-xs rounded-2xl "
           >
-            {item.name}
+            {item}
           </span>
         ))}
       </div>

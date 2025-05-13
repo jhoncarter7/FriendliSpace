@@ -16,6 +16,7 @@ const ProfileDetails = () => {
        <div className='md:w-4/6'>
        <Profile friend={friend}/>
        </div>
+       
        <div className='md:w-2/5'>
         <BookingPanel name={friend?.name || ''} rate={friend?.rating ?? 0} ratePerMinute={friend?.ratePerMinute ?? 0} />
        </div>

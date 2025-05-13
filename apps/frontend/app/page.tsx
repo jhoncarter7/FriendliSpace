@@ -1,3 +1,4 @@
+
 import { AnimatedTooltipPreview } from "./components/AnimatedTooltipPreview";
 import { Button } from "./components/ui/button";
 import {
@@ -11,6 +12,8 @@ import Image from "next/image";
 import React from "react";
 
 const Home = () => {
+
+  
   return (
     <section className="mx-auto container">
       <div className=" xl:w-[52%] md:w-4/6 w-full mx-auto text-center">

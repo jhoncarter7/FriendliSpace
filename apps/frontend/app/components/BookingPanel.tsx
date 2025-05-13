@@ -66,7 +66,7 @@ const BookingPanel: React.FC<BookingPanelIF> = ({name, rate, ratePerMinute}) => 
       
       <div className="mb-6">
         <h3 className="font-medium mb-3">Privacy Settings</h3>
-        <div className="space-y-3">
+        <div className="space-y-3 space-x-3">
           {communicationType === 'video' && (
             <Toggle
               isChecked={blurFace}

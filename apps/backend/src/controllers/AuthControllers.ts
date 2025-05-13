@@ -55,36 +55,49 @@ const registerFriend = async (
   next: NextFunction
 ) => {
   try {
-    const {name, email, password, specialties } = req.body;
+    const { name, email, password, specialties } = req.body;
     const role = "FRIEND";
 
     if (!email || !password || !specialties) {
       return next(new Error("fill all input"));
     }
 
+    console.log("specialties", specialties, req.body);
+
     const existingUser = await prismaClient.user.findUnique({
       where: { email },
     });
-
+    console.log("existingUser", existingUser);
     if (existingUser) {
       res.status(409).json({ message: "user already exist" });
       return;
     }
 
     const passwordHash = bcrypt.hashSync(password, 10);
+    console.log("passwordHash", passwordHash);
 
     let validatedSpecialties: string[] = [];
     if (specialties) {
-      if (!Array.isArray(specialties)) {
+      if (typeof specialties === "string") {
+        // If specialties is a string, split by comma and trim
+        validatedSpecialties = specialties
+          .split(",")
+          .map((s) => s.trim())
+          .filter((s) => s.length > 0);
+      } else if (Array.isArray(specialties)) {
+        // If it's already an array, just trim and filter out empty values
+        validatedSpecialties = specialties
+          .map((s: any) => typeof s === "string" ? s.trim() : "")
+          .filter((s: string) => s.length > 0);
+      } else {
         res.status(400).json({
-          message: "Specialties must be provided as an array of strings.",
+          message: "Specialties must be provided as an array or comma separated string.",
         });
         return;
       }
-      validatedSpecialties = specialties
-        .filter((s) => typeof s === "string" && s.trim().length > 0)
-        .map((s) => s.trim());
     }
+
+    console.log("creating friend with specialties:", validatedSpecialties);
 
     const newUser = await prismaClient.$transaction(async (tx) => {
       const user = await tx.user.create({
@@ -96,7 +109,7 @@ const registerFriend = async (
         },
       });
 
-      const fr = await tx.friend.create({
+      await tx.friend.create({
         data: {
           userId: user.id,
           specialties: validatedSpecialties,
@@ -106,20 +119,18 @@ const registerFriend = async (
       return tx.user.findUnique({
         where: { id: user.id },
         include: {
-          // profile: true, // Excluded
           friendProfile: true,
         },
       });
     });
-
+    console.log("friend created", newUser);
     if (!newUser) {
-      // Transaction failed somehow
       throw new Error("User creation failed during transaction.");
     }
     const { passwordHash: _, ...userResponse } = newUser;
     res.status(201).json({
       message: "Friend registered successfully. Please complete your profile.",
-      user: userResponse, // Contains id, email, role, friendProfile etc. but NO profile
+      user: userResponse,
       token: generateToken(newUser.id, role),
     });
   } catch (error) {
@@ -165,11 +176,15 @@ const login = async (req: Request, res: Response, next: NextFunction) => {
       res.status(401).json({ message: "wrong credential" });
       return;
     }
-    res.status(200).cookie("accesToken", token).json({
+    res.status(200).cookie("accesToken", token, {
+      httpOnly: true,
+      secure: process.env.NODE_ENV === "production",
+      sameSite: "lax"
+    }).json({
       message: "Login successful ",
       userId: findUser?.id,
       token: token,
-      role: findUser?.role,
+      user: { id: findUser?.id, name: findUser?.name, role: findUser?.role },
     });
   } catch (error) {
     next(error);

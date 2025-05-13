@@ -9,9 +9,7 @@ const getCurrentUserProfile = async (
   try {
     const userId = (req as any).user?.id;
     if (!userId) {
-      res
-        .status(401)
-        .json({ message: "Unauthorized: No user ID found in request." });
+      res.status(401).json({ message: "Unauthorized: No user ID found in request." });
       return;
     }
 
@@ -23,8 +21,23 @@ const getCurrentUserProfile = async (
         role: true,
         createdAt: true,
         updatedAt: true,
-        profile: true,
-        friendProfile: true,
+        profile: {
+          select: {
+            displayName: true,
+            bio: true,
+            gender: true,
+            interests: true,
+            avatarUrl: true,
+          },
+        },
+        friendProfile: {
+          select: {
+            specialties: true,
+            isVerified: true,
+            averageRating: true,
+            totalReviews: true,
+          },
+        },
       },
     });
 
@@ -33,7 +46,27 @@ const getCurrentUserProfile = async (
       return;
     }
 
-    res.status(200).json(userProfile);
+    // Supply default values if related records are null
+    const defaultProfile = {
+      displayName: "",
+      bio: "",
+      gender: "",
+      interests: [],
+      avatarUrl: "",
+    };
+
+    const defaultFriendProfile = {
+      specialties: [],
+      isVerified: false,
+      averageRating: 0,
+      totalReviews: 0,
+    };
+
+    res.status(200).json({
+      ...userProfile,
+      profile: userProfile.profile ?? defaultProfile,
+      friendProfile: userProfile.friendProfile ?? defaultFriendProfile,
+    });
   } catch (error) {
     console.error("Get Current User Profile Error:", error);
     next(error);
@@ -47,7 +80,7 @@ const updateCurrentUserProfile = async (
 ) => {
   try {
     const userId = (req as any).user?.id;
-    console.log("profile update");
+    console.log("profile update", userId, req.user);
     if (!userId) {
       res.status(401).json({ message: "Unauthorized" });
       return;
@@ -58,11 +91,11 @@ const updateCurrentUserProfile = async (
 
     if (displayName !== undefined) profileData.displayName = displayName;
     if (bio !== undefined) profileData.bio = bio;
-    
+
     if (gender !== undefined) {
       const normalized = gender.toUpperCase() as Gender;
       if (Object.values(Gender).includes(normalized)) {
-        profileData.gender =normalized;
+        profileData.gender = normalized;
       } else {
         console.warn("Invalid gender value provided:", gender);
 
@@ -77,7 +110,7 @@ const updateCurrentUserProfile = async (
       ) {
         profileData.interests = interests
           .map((i) => i.trim())
-          .filter((i) => i.length > 0); 
+          .filter((i) => i.length > 0);
       } else {
         console.warn("Invalid interests format provided:", interests);
         res.status(400).json({ message: "Invalid interests format." });
@@ -135,6 +168,8 @@ const getUserProfileById = async (
         },
         friendProfile: {
           select: {
+            hourlyRate:true,
+            perMinuteRate: true,
             specialties: true,
             isVerified: true,
             averageRating: true,

@@ -53,16 +53,12 @@ enum Gender {
 model Profile {
   id          String   @id @default(cuid())
   userId      String   @unique
-  user        User     @relation(fields: [userId], references: [id], onDelete: Cascade, onUpdate: Cascade)
-  displayName String?
-  bio         String?
-  gender      Gender?
+  displayName String?  @default("")
+  bio         String?  @default("")
+  gender      String?  @default("")
   interests   String[] @default([])
-  avatarUrl   String?
-  createdAt   DateTime @default(now())
-  updatedAt   DateTime @updatedAt
-
-  @@map("profiles")
+  avatarUrl   String?  @default("")
+  user        User     @relation(fields: [userId], references: [id], onDelete: Cascade, onUpdate: Cascade)
 }
 
 model Friend {
@@ -70,13 +66,14 @@ model Friend {
   userId           String   @unique
   user             User     @relation(fields: [userId], references: [id], onDelete: Cascade, onUpdate: Cascade)
   // Removed rate fields for MVP
-  hourlyRate       Float?
-  perMinuteRate    Float?
+  hourlyRate       Float    @default(0)
+  perMinuteRate    Float    @default(0)
   availabilityJson String?
   specialties      String[] @default([])
   isVerified       Boolean  @default(false)
   averageRating    Float    @default(0.0)
   totalReviews     Int      @default(0)
+  totalSessions    Int      @default(0)
   createdAt        DateTime @default(now())
   updatedAt        DateTime @updatedAt
 

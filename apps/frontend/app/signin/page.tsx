@@ -12,23 +12,33 @@ import axios from "axios";
 import { toast } from "react-toastify";
 import { useRouter } from "next/navigation";
 import { Api } from "@/lib/api";
+import { useStore } from "@tanstack/react-store";
+import { authStore } from "@/lib/store/store";
 
 function Signin() {
   const navigate = useRouter();
+  const { isAuthenticated, login } = useStore(authStore, (state) => state);
   const handleSubmit = async (e: React.FormEvent<HTMLFormElement>) => {
     e.preventDefault();
     const form = e.target as HTMLFormElement;
     const email = (form.elements.namedItem("email") as HTMLInputElement).value;
     const password = (form.elements.namedItem("password") as HTMLInputElement)
       .value;
-console.log(email, password)
-    const response = await axios.post(`${Api.SIGNIN}`, { email, password });
+
+    const response = await axios.post(`${Api.SIGNIN}`, { email, password }, {withCredentials: true});
     if (response.status !== 200) {
+      toast.error("please check credential")
       return;
     }
     toast.success("Login successful");
-    navigate.push("/");
+    console.log("login res",response.data)
+    login(response.data.user);
+    console.log(isAuthenticated, "isAuthenticated")
+    if (!isAuthenticated) {
+      navigate.push("/");
+    }
   };
+
   return (
     <div className="shadow-input mx-auto w-full max-w-md rounded-none bg-white p-4 md:rounded-2xl md:p-8 dark:bg-black">
       <h2 className="text-xl font-bold text-neutral-800 dark:text-neutral-200">
@@ -55,7 +65,18 @@ console.log(email, password)
           Sign in &rarr;
           <BottomGradient />
         </button>
-
+        <div>
+          <p>
+            If its your first time here please
+            <span
+              className="font-semibold cursor-pointer text-cyan-600"
+              onClick={() => navigate.push("/seeker/signup")}
+            >
+              {" "}
+              Signup
+            </span>
+          </p>
+        </div>
         <div className="my-8 h-[1px] w-full bg-gradient-to-r from-transparent via-neutral-300 to-transparent dark:via-neutral-700" />
 
         <div className="flex flex-col space-y-4">
@@ -81,7 +102,7 @@ console.log(email, password)
           </button>
           <button
             className="group/btn shadow-input relative flex h-10 w-full items-center justify-start space-x-2 rounded-md bg-gray-50 px-4 font-medium text-black dark:bg-zinc-900 dark:shadow-[0px_0px_1px_1px_#262626]"
-            type="submit"
+           onClick={() => navigate.push("/FRIEND/signup")}
           >
             <IconBrandOnlyfans className="h-4 w-4 text-neutral-800 dark:text-neutral-300" />
             <span className="text-sm text-neutral-700 dark:text-neutral-300">

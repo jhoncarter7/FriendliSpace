@@ -137,9 +137,7 @@ exports.Prisma.ProfileScalarFieldEnum = {
   bio: 'bio',
   gender: 'gender',
   interests: 'interests',
-  avatarUrl: 'avatarUrl',
-  createdAt: 'createdAt',
-  updatedAt: 'updatedAt'
+  avatarUrl: 'avatarUrl'
 };
 
 exports.Prisma.FriendScalarFieldEnum = {
@@ -152,6 +150,7 @@ exports.Prisma.FriendScalarFieldEnum = {
   isVerified: 'isVerified',
   averageRating: 'averageRating',
   totalReviews: 'totalReviews',
+  totalSessions: 'totalSessions',
   createdAt: 'createdAt',
   updatedAt: 'updatedAt'
 };
@@ -217,14 +216,6 @@ exports.UserRole = exports.$Enums.UserRole = {
   SEEKER: 'SEEKER',
   FRIEND: 'FRIEND',
   ADMIN: 'ADMIN'
-};
-
-exports.Gender = exports.$Enums.Gender = {
-  MALE: 'MALE',
-  FEMALE: 'FEMALE',
-  NON_BINARY: 'NON_BINARY',
-  OTHER: 'OTHER',
-  PREFER_NOT_TO_SAY: 'PREFER_NOT_TO_SAY'
 };
 
 exports.SessionStatus = exports.$Enums.SessionStatus = {

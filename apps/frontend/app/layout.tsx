@@ -2,7 +2,13 @@ import type { Metadata } from "next";
 import localFont from "next/font/local";
 import "./globals.css";
 import NavBar from "./components/NavBar";
-import { Bounce, ToastContainer, toast } from "react-toastify";
+import { Bounce, ToastContainer } from "react-toastify";
+
+import QueryProvider from "./QueryProvider";
+import { Suspense } from "react";
+
+import { UIProviders } from "./UIProvider";
+import Loading from "./loading";
 const geistSans = localFont({
   src: "./fonts/GeistVF.woff",
   variable: "--font-geist-sans",
@@ -40,9 +46,15 @@ export default function RootLayout({
           theme="light"
           transition={Bounce}
         />
-        <NavBar />
+        <QueryProvider>
+          <NavBar />
+          <UIProviders>
 
-        {children}
+            <Suspense fallback={<Loading />}>
+              {children}
+            </Suspense>
+          </UIProviders>
+        </QueryProvider>
       </body>
     </html>
   );

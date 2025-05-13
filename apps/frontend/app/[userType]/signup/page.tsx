@@ -12,12 +12,13 @@ import axios from "axios";
 import { Api } from "@/lib/api";
 import { toast } from "react-toastify";
 import { useParams } from "next/navigation";
+import { useRouter } from "next/navigation";
 
 
 
 function Signup() {
   const { userType } = useParams();
-
+  const  router = useRouter();
   console.log(userType);
   const handleSubmit = async (e: React.FormEvent<HTMLFormElement>) => {
     e.preventDefault();
@@ -25,12 +26,15 @@ function Signup() {
     const name = (form.elements.namedItem("name") as HTMLInputElement).value;
     const email = (form.elements.namedItem("email") as HTMLInputElement).value;
     const password = (form.elements.namedItem("password") as HTMLInputElement).value;
-console.log(name, email, password)
+    const specialties = (form.elements.namedItem("specialties") as HTMLInputElement).value
+
+console.log(name, email, specialties)
     try {
-      const resp = await axios.post(`${Api.REGISTER_SEEKER}`, {
+      const resp = await axios.post(`${userType === "SEEKER" ? Api.REGISTER_SEEKER : Api.REGISTER_FRIEND}`, {
         name,
         email,
         password,
+        specialties: [specialties]
       });
       if (resp.status !== 201) {
         toast.error("please check your credentials");
@@ -70,6 +74,11 @@ console.log(name, email, password)
           <Input id="password" placeholder="••••••••" type="password" />
         </LabelInputContainer>
 
+       {userType === "FRIEND" && <LabelInputContainer className="mb-4">
+          <Label htmlFor="specialties">specialties</Label>
+          <Input id="specialties" name="specialties" placeholder="Emotional suporter" type="text" />
+        </LabelInputContainer>}
+
         <button
           className="group/btn relative block h-10 w-full rounded-md bg-gradient-to-br from-black to-neutral-600 font-medium text-white shadow-[0px_1px_0px_0px_#ffffff40_inset,0px_-1px_0px_0px_#ffffff40_inset] dark:bg-zinc-800 dark:from-zinc-900 dark:to-zinc-900 dark:shadow-[0px_1px_0px_0px_#27272a_inset,0px_-1px_0px_0px_#27272a_inset]"
           type="submit"
@@ -81,6 +90,17 @@ console.log(name, email, password)
         <div className="my-8 h-[1px] w-full bg-gradient-to-r from-transparent via-neutral-300 to-transparent dark:via-neutral-700" />
 
         <div className="flex flex-col space-y-4">
+           <button
+            className="group/btn shadow-input relative flex h-10 w-full items-center justify-start space-x-2 rounded-md bg-gray-50 px-4 font-medium text-black dark:bg-zinc-900 dark:shadow-[0px_0px_1px_1px_#262626]"
+           
+            onClick={()=> router.push('/FRIEND/signup')}
+          >
+            <IconBrandOnlyfans className="h-4 w-4 text-neutral-800 dark:text-neutral-300" />
+            <span className="text-sm text-neutral-700 dark:text-neutral-300">
+              friend acc
+            </span>
+            <BottomGradient />
+          </button>
           <button
             className="group/btn shadow-input relative flex h-10 w-full items-center justify-start space-x-2 rounded-md bg-gray-50 px-4 font-medium text-black dark:bg-zinc-900 dark:shadow-[0px_0px_1px_1px_#262626]"
             type="submit"
@@ -101,16 +121,7 @@ console.log(name, email, password)
             </span>
             <BottomGradient />
           </button>
-          <button
-            className="group/btn shadow-input relative flex h-10 w-full items-center justify-start space-x-2 rounded-md bg-gray-50 px-4 font-medium text-black dark:bg-zinc-900 dark:shadow-[0px_0px_1px_1px_#262626]"
-            type="submit"
-          >
-            <IconBrandOnlyfans className="h-4 w-4 text-neutral-800 dark:text-neutral-300" />
-            <span className="text-sm text-neutral-700 dark:text-neutral-300">
-              OnlyFans
-            </span>
-            <BottomGradient />
-          </button>
+         
         </div>
       </form>
     </div>

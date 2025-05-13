@@ -2976,10 +2976,8 @@ export namespace Prisma {
     userId: string | null
     displayName: string | null
     bio: string | null
-    gender: $Enums.Gender | null
+    gender: string | null
     avatarUrl: string | null
-    createdAt: Date | null
-    updatedAt: Date | null
   }
 
   export type ProfileMaxAggregateOutputType = {
@@ -2987,10 +2985,8 @@ export namespace Prisma {
     userId: string | null
     displayName: string | null
     bio: string | null
-    gender: $Enums.Gender | null
+    gender: string | null
     avatarUrl: string | null
-    createdAt: Date | null
-    updatedAt: Date | null
   }
 
   export type ProfileCountAggregateOutputType = {
@@ -3001,8 +2997,6 @@ export namespace Prisma {
     gender: number
     interests: number
     avatarUrl: number
-    createdAt: number
-    updatedAt: number
     _all: number
   }
 
@@ -3014,8 +3008,6 @@ export namespace Prisma {
     bio?: true
     gender?: true
     avatarUrl?: true
-    createdAt?: true
-    updatedAt?: true
   }
 
   export type ProfileMaxAggregateInputType = {
@@ -3025,8 +3017,6 @@ export namespace Prisma {
     bio?: true
     gender?: true
     avatarUrl?: true
-    createdAt?: true
-    updatedAt?: true
   }
 
   export type ProfileCountAggregateInputType = {
@@ -3037,8 +3027,6 @@ export namespace Prisma {
     gender?: true
     interests?: true
     avatarUrl?: true
-    createdAt?: true
-    updatedAt?: true
     _all?: true
   }
 
@@ -3119,11 +3107,9 @@ export namespace Prisma {
     userId: string
     displayName: string | null
     bio: string | null
-    gender: $Enums.Gender | null
+    gender: string | null
     interests: string[]
     avatarUrl: string | null
-    createdAt: Date
-    updatedAt: Date
     _count: ProfileCountAggregateOutputType | null
     _min: ProfileMinAggregateOutputType | null
     _max: ProfileMaxAggregateOutputType | null
@@ -3151,8 +3137,6 @@ export namespace Prisma {
     gender?: boolean
     interests?: boolean
     avatarUrl?: boolean
-    createdAt?: boolean
-    updatedAt?: boolean
     user?: boolean | UserDefaultArgs<ExtArgs>
   }, ExtArgs["result"]["profile"]>
 
@@ -3164,8 +3148,6 @@ export namespace Prisma {
     gender?: boolean
     interests?: boolean
     avatarUrl?: boolean
-    createdAt?: boolean
-    updatedAt?: boolean
     user?: boolean | UserDefaultArgs<ExtArgs>
   }, ExtArgs["result"]["profile"]>
 
@@ -3177,8 +3159,6 @@ export namespace Prisma {
     gender?: boolean
     interests?: boolean
     avatarUrl?: boolean
-    createdAt?: boolean
-    updatedAt?: boolean
     user?: boolean | UserDefaultArgs<ExtArgs>
   }, ExtArgs["result"]["profile"]>
 
@@ -3190,11 +3170,9 @@ export namespace Prisma {
     gender?: boolean
     interests?: boolean
     avatarUrl?: boolean
-    createdAt?: boolean
-    updatedAt?: boolean
   }
 
-  export type ProfileOmit<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = $Extensions.GetOmit<"id" | "userId" | "displayName" | "bio" | "gender" | "interests" | "avatarUrl" | "createdAt" | "updatedAt", ExtArgs["result"]["profile"]>
+  export type ProfileOmit<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = $Extensions.GetOmit<"id" | "userId" | "displayName" | "bio" | "gender" | "interests" | "avatarUrl", ExtArgs["result"]["profile"]>
   export type ProfileInclude<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
     user?: boolean | UserDefaultArgs<ExtArgs>
   }
@@ -3215,11 +3193,9 @@ export namespace Prisma {
       userId: string
       displayName: string | null
       bio: string | null
-      gender: $Enums.Gender | null
+      gender: string | null
       interests: string[]
       avatarUrl: string | null
-      createdAt: Date
-      updatedAt: Date
     }, ExtArgs["result"]["profile"]>
     composites: {}
   }
@@ -3648,11 +3624,9 @@ export namespace Prisma {
     readonly userId: FieldRef<"Profile", 'String'>
     readonly displayName: FieldRef<"Profile", 'String'>
     readonly bio: FieldRef<"Profile", 'String'>
-    readonly gender: FieldRef<"Profile", 'Gender'>
+    readonly gender: FieldRef<"Profile", 'String'>
     readonly interests: FieldRef<"Profile", 'String[]'>
     readonly avatarUrl: FieldRef<"Profile", 'String'>
-    readonly createdAt: FieldRef<"Profile", 'DateTime'>
-    readonly updatedAt: FieldRef<"Profile", 'DateTime'>
   }
     
 
@@ -4084,6 +4058,7 @@ export namespace Prisma {
     perMinuteRate: number | null
     averageRating: number | null
     totalReviews: number | null
+    totalSessions: number | null
   }
 
   export type FriendSumAggregateOutputType = {
@@ -4091,6 +4066,7 @@ export namespace Prisma {
     perMinuteRate: number | null
     averageRating: number | null
     totalReviews: number | null
+    totalSessions: number | null
   }
 
   export type FriendMinAggregateOutputType = {
@@ -4102,6 +4078,7 @@ export namespace Prisma {
     isVerified: boolean | null
     averageRating: number | null
     totalReviews: number | null
+    totalSessions: number | null
     createdAt: Date | null
     updatedAt: Date | null
   }
@@ -4115,6 +4092,7 @@ export namespace Prisma {
     isVerified: boolean | null
     averageRating: number | null
     totalReviews: number | null
+    totalSessions: number | null
     createdAt: Date | null
     updatedAt: Date | null
   }
@@ -4129,6 +4107,7 @@ export namespace Prisma {
     isVerified: number
     averageRating: number
     totalReviews: number
+    totalSessions: number
     createdAt: number
     updatedAt: number
     _all: number
@@ -4140,6 +4119,7 @@ export namespace Prisma {
     perMinuteRate?: true
     averageRating?: true
     totalReviews?: true
+    totalSessions?: true
   }
 
   export type FriendSumAggregateInputType = {
@@ -4147,6 +4127,7 @@ export namespace Prisma {
     perMinuteRate?: true
     averageRating?: true
     totalReviews?: true
+    totalSessions?: true
   }
 
   export type FriendMinAggregateInputType = {
@@ -4158,6 +4139,7 @@ export namespace Prisma {
     isVerified?: true
     averageRating?: true
     totalReviews?: true
+    totalSessions?: true
     createdAt?: true
     updatedAt?: true
   }
@@ -4171,6 +4153,7 @@ export namespace Prisma {
     isVerified?: true
     averageRating?: true
     totalReviews?: true
+    totalSessions?: true
     createdAt?: true
     updatedAt?: true
   }
@@ -4185,6 +4168,7 @@ export namespace Prisma {
     isVerified?: true
     averageRating?: true
     totalReviews?: true
+    totalSessions?: true
     createdAt?: true
     updatedAt?: true
     _all?: true
@@ -4279,13 +4263,14 @@ export namespace Prisma {
   export type FriendGroupByOutputType = {
     id: string
     userId: string
-    hourlyRate: number | null
-    perMinuteRate: number | null
+    hourlyRate: number
+    perMinuteRate: number
     availabilityJson: string | null
     specialties: string[]
     isVerified: boolean
     averageRating: number
     totalReviews: number
+    totalSessions: number
     createdAt: Date
     updatedAt: Date
     _count: FriendCountAggregateOutputType | null
@@ -4319,6 +4304,7 @@ export namespace Prisma {
     isVerified?: boolean
     averageRating?: boolean
     totalReviews?: boolean
+    totalSessions?: boolean
     createdAt?: boolean
     updatedAt?: boolean
     user?: boolean | UserDefaultArgs<ExtArgs>
@@ -4334,6 +4320,7 @@ export namespace Prisma {
     isVerified?: boolean
     averageRating?: boolean
     totalReviews?: boolean
+    totalSessions?: boolean
     createdAt?: boolean
     updatedAt?: boolean
     user?: boolean | UserDefaultArgs<ExtArgs>
@@ -4349,6 +4336,7 @@ export namespace Prisma {
     isVerified?: boolean
     averageRating?: boolean
     totalReviews?: boolean
+    totalSessions?: boolean
     createdAt?: boolean
     updatedAt?: boolean
     user?: boolean | UserDefaultArgs<ExtArgs>
@@ -4364,11 +4352,12 @@ export namespace Prisma {
     isVerified?: boolean
     averageRating?: boolean
     totalReviews?: boolean
+    totalSessions?: boolean
     createdAt?: boolean
     updatedAt?: boolean
   }
 
-  export type FriendOmit<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = $Extensions.GetOmit<"id" | "userId" | "hourlyRate" | "perMinuteRate" | "availabilityJson" | "specialties" | "isVerified" | "averageRating" | "totalReviews" | "createdAt" | "updatedAt", ExtArgs["result"]["friend"]>
+  export type FriendOmit<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = $Extensions.GetOmit<"id" | "userId" | "hourlyRate" | "perMinuteRate" | "availabilityJson" | "specialties" | "isVerified" | "averageRating" | "totalReviews" | "totalSessions" | "createdAt" | "updatedAt", ExtArgs["result"]["friend"]>
   export type FriendInclude<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
     user?: boolean | UserDefaultArgs<ExtArgs>
   }
@@ -4387,13 +4376,14 @@ export namespace Prisma {
     scalars: $Extensions.GetPayloadResult<{
       id: string
       userId: string
-      hourlyRate: number | null
-      perMinuteRate: number | null
+      hourlyRate: number
+      perMinuteRate: number
       availabilityJson: string | null
       specialties: string[]
       isVerified: boolean
       averageRating: number
       totalReviews: number
+      totalSessions: number
       createdAt: Date
       updatedAt: Date
     }, ExtArgs["result"]["friend"]>
@@ -4829,6 +4819,7 @@ export namespace Prisma {
     readonly isVerified: FieldRef<"Friend", 'Boolean'>
     readonly averageRating: FieldRef<"Friend", 'Float'>
     readonly totalReviews: FieldRef<"Friend", 'Int'>
+    readonly totalSessions: FieldRef<"Friend", 'Int'>
     readonly createdAt: FieldRef<"Friend", 'DateTime'>
     readonly updatedAt: FieldRef<"Friend", 'DateTime'>
   }
@@ -9866,9 +9857,7 @@ export namespace Prisma {
     bio: 'bio',
     gender: 'gender',
     interests: 'interests',
-    avatarUrl: 'avatarUrl',
-    createdAt: 'createdAt',
-    updatedAt: 'updatedAt'
+    avatarUrl: 'avatarUrl'
   };
 
   export type ProfileScalarFieldEnum = (typeof ProfileScalarFieldEnum)[keyof typeof ProfileScalarFieldEnum]
@@ -9884,6 +9873,7 @@ export namespace Prisma {
     isVerified: 'isVerified',
     averageRating: 'averageRating',
     totalReviews: 'totalReviews',
+    totalSessions: 'totalSessions',
     createdAt: 'createdAt',
     updatedAt: 'updatedAt'
   };
@@ -10014,20 +10004,6 @@ export namespace Prisma {
    * Reference to a field of type 'DateTime[]'
    */
   export type ListDateTimeFieldRefInput<$PrismaModel> = FieldRefInputType<$PrismaModel, 'DateTime[]'>
-    
-
-
-  /**
-   * Reference to a field of type 'Gender'
-   */
-  export type EnumGenderFieldRefInput<$PrismaModel> = FieldRefInputType<$PrismaModel, 'Gender'>
-    
-
-
-  /**
-   * Reference to a field of type 'Gender[]'
-   */
-  export type ListEnumGenderFieldRefInput<$PrismaModel> = FieldRefInputType<$PrismaModel, 'Gender[]'>
     
 
 
@@ -10211,11 +10187,9 @@ export namespace Prisma {
     userId?: StringFilter<"Profile"> | string
     displayName?: StringNullableFilter<"Profile"> | string | null
     bio?: StringNullableFilter<"Profile"> | string | null
-    gender?: EnumGenderNullableFilter<"Profile"> | $Enums.Gender | null
+    gender?: StringNullableFilter<"Profile"> | string | null
     interests?: StringNullableListFilter<"Profile">
     avatarUrl?: StringNullableFilter<"Profile"> | string | null
-    createdAt?: DateTimeFilter<"Profile"> | Date | string
-    updatedAt?: DateTimeFilter<"Profile"> | Date | string
     user?: XOR<UserScalarRelationFilter, UserWhereInput>
   }
 
@@ -10227,8 +10201,6 @@ export namespace Prisma {
     gender?: SortOrderInput | SortOrder
     interests?: SortOrder
     avatarUrl?: SortOrderInput | SortOrder
-    createdAt?: SortOrder
-    updatedAt?: SortOrder
     user?: UserOrderByWithRelationInput
   }
 
@@ -10240,11 +10212,9 @@ export namespace Prisma {
     NOT?: ProfileWhereInput | ProfileWhereInput[]
     displayName?: StringNullableFilter<"Profile"> | string | null
     bio?: StringNullableFilter<"Profile"> | string | null
-    gender?: EnumGenderNullableFilter<"Profile"> | $Enums.Gender | null
+    gender?: StringNullableFilter<"Profile"> | string | null
     interests?: StringNullableListFilter<"Profile">
     avatarUrl?: StringNullableFilter<"Profile"> | string | null
-    createdAt?: DateTimeFilter<"Profile"> | Date | string
-    updatedAt?: DateTimeFilter<"Profile"> | Date | string
     user?: XOR<UserScalarRelationFilter, UserWhereInput>
   }, "id" | "userId">
 
@@ -10256,8 +10226,6 @@ export namespace Prisma {
     gender?: SortOrderInput | SortOrder
     interests?: SortOrder
     avatarUrl?: SortOrderInput | SortOrder
-    createdAt?: SortOrder
-    updatedAt?: SortOrder
     _count?: ProfileCountOrderByAggregateInput
     _max?: ProfileMaxOrderByAggregateInput
     _min?: ProfileMinOrderByAggregateInput
@@ -10271,11 +10239,9 @@ export namespace Prisma {
     userId?: StringWithAggregatesFilter<"Profile"> | string
     displayName?: StringNullableWithAggregatesFilter<"Profile"> | string | null
     bio?: StringNullableWithAggregatesFilter<"Profile"> | string | null
-    gender?: EnumGenderNullableWithAggregatesFilter<"Profile"> | $Enums.Gender | null
+    gender?: StringNullableWithAggregatesFilter<"Profile"> | string | null
     interests?: StringNullableListFilter<"Profile">
     avatarUrl?: StringNullableWithAggregatesFilter<"Profile"> | string | null
-    createdAt?: DateTimeWithAggregatesFilter<"Profile"> | Date | string
-    updatedAt?: DateTimeWithAggregatesFilter<"Profile"> | Date | string
   }
 
   export type FriendWhereInput = {
@@ -10284,13 +10250,14 @@ export namespace Prisma {
     NOT?: FriendWhereInput | FriendWhereInput[]
     id?: StringFilter<"Friend"> | string
     userId?: StringFilter<"Friend"> | string
-    hourlyRate?: FloatNullableFilter<"Friend"> | number | null
-    perMinuteRate?: FloatNullableFilter<"Friend"> | number | null
+    hourlyRate?: FloatFilter<"Friend"> | number
+    perMinuteRate?: FloatFilter<"Friend"> | number
     availabilityJson?: StringNullableFilter<"Friend"> | string | null
     specialties?: StringNullableListFilter<"Friend">
     isVerified?: BoolFilter<"Friend"> | boolean
     averageRating?: FloatFilter<"Friend"> | number
     totalReviews?: IntFilter<"Friend"> | number
+    totalSessions?: IntFilter<"Friend"> | number
     createdAt?: DateTimeFilter<"Friend"> | Date | string
     updatedAt?: DateTimeFilter<"Friend"> | Date | string
     user?: XOR<UserScalarRelationFilter, UserWhereInput>
@@ -10299,13 +10266,14 @@ export namespace Prisma {
   export type FriendOrderByWithRelationInput = {
     id?: SortOrder
     userId?: SortOrder
-    hourlyRate?: SortOrderInput | SortOrder
-    perMinuteRate?: SortOrderInput | SortOrder
+    hourlyRate?: SortOrder
+    perMinuteRate?: SortOrder
     availabilityJson?: SortOrderInput | SortOrder
     specialties?: SortOrder
     isVerified?: SortOrder
     averageRating?: SortOrder
     totalReviews?: SortOrder
+    totalSessions?: SortOrder
     createdAt?: SortOrder
     updatedAt?: SortOrder
     user?: UserOrderByWithRelationInput
@@ -10317,13 +10285,14 @@ export namespace Prisma {
     AND?: FriendWhereInput | FriendWhereInput[]
     OR?: FriendWhereInput[]
     NOT?: FriendWhereInput | FriendWhereInput[]
-    hourlyRate?: FloatNullableFilter<"Friend"> | number | null
-    perMinuteRate?: FloatNullableFilter<"Friend"> | number | null
+    hourlyRate?: FloatFilter<"Friend"> | number
+    perMinuteRate?: FloatFilter<"Friend"> | number
     availabilityJson?: StringNullableFilter<"Friend"> | string | null
     specialties?: StringNullableListFilter<"Friend">
     isVerified?: BoolFilter<"Friend"> | boolean
     averageRating?: FloatFilter<"Friend"> | number
     totalReviews?: IntFilter<"Friend"> | number
+    totalSessions?: IntFilter<"Friend"> | number
     createdAt?: DateTimeFilter<"Friend"> | Date | string
     updatedAt?: DateTimeFilter<"Friend"> | Date | string
     user?: XOR<UserScalarRelationFilter, UserWhereInput>
@@ -10332,13 +10301,14 @@ export namespace Prisma {
   export type FriendOrderByWithAggregationInput = {
     id?: SortOrder
     userId?: SortOrder
-    hourlyRate?: SortOrderInput | SortOrder
-    perMinuteRate?: SortOrderInput | SortOrder
+    hourlyRate?: SortOrder
+    perMinuteRate?: SortOrder
     availabilityJson?: SortOrderInput | SortOrder
     specialties?: SortOrder
     isVerified?: SortOrder
     averageRating?: SortOrder
     totalReviews?: SortOrder
+    totalSessions?: SortOrder
     createdAt?: SortOrder
     updatedAt?: SortOrder
     _count?: FriendCountOrderByAggregateInput
@@ -10354,13 +10324,14 @@ export namespace Prisma {
     NOT?: FriendScalarWhereWithAggregatesInput | FriendScalarWhereWithAggregatesInput[]
     id?: StringWithAggregatesFilter<"Friend"> | string
     userId?: StringWithAggregatesFilter<"Friend"> | string
-    hourlyRate?: FloatNullableWithAggregatesFilter<"Friend"> | number | null
-    perMinuteRate?: FloatNullableWithAggregatesFilter<"Friend"> | number | null
+    hourlyRate?: FloatWithAggregatesFilter<"Friend"> | number
+    perMinuteRate?: FloatWithAggregatesFilter<"Friend"> | number
     availabilityJson?: StringNullableWithAggregatesFilter<"Friend"> | string | null
     specialties?: StringNullableListFilter<"Friend">
     isVerified?: BoolWithAggregatesFilter<"Friend"> | boolean
     averageRating?: FloatWithAggregatesFilter<"Friend"> | number
     totalReviews?: IntWithAggregatesFilter<"Friend"> | number
+    totalSessions?: IntWithAggregatesFilter<"Friend"> | number
     createdAt?: DateTimeWithAggregatesFilter<"Friend"> | Date | string
     updatedAt?: DateTimeWithAggregatesFilter<"Friend"> | Date | string
   }
@@ -10784,11 +10755,9 @@ export namespace Prisma {
     id?: string
     displayName?: string | null
     bio?: string | null
-    gender?: $Enums.Gender | null
+    gender?: string | null
     interests?: ProfileCreateinterestsInput | string[]
     avatarUrl?: string | null
-    createdAt?: Date | string
-    updatedAt?: Date | string
     user: UserCreateNestedOneWithoutProfileInput
   }
 
@@ -10797,22 +10766,18 @@ export namespace Prisma {
     userId: string
     displayName?: string | null
     bio?: string | null
-    gender?: $Enums.Gender | null
+    gender?: string | null
     interests?: ProfileCreateinterestsInput | string[]
     avatarUrl?: string | null
-    createdAt?: Date | string
-    updatedAt?: Date | string
   }
 
   export type ProfileUpdateInput = {
     id?: StringFieldUpdateOperationsInput | string
     displayName?: NullableStringFieldUpdateOperationsInput | string | null
     bio?: NullableStringFieldUpdateOperationsInput | string | null
-    gender?: NullableEnumGenderFieldUpdateOperationsInput | $Enums.Gender | null
+    gender?: NullableStringFieldUpdateOperationsInput | string | null
     interests?: ProfileUpdateinterestsInput | string[]
     avatarUrl?: NullableStringFieldUpdateOperationsInput | string | null
-    createdAt?: DateTimeFieldUpdateOperationsInput | Date | string
-    updatedAt?: DateTimeFieldUpdateOperationsInput | Date | string
     user?: UserUpdateOneRequiredWithoutProfileNestedInput
   }
 
@@ -10821,11 +10786,9 @@ export namespace Prisma {
     userId?: StringFieldUpdateOperationsInput | string
     displayName?: NullableStringFieldUpdateOperationsInput | string | null
     bio?: NullableStringFieldUpdateOperationsInput | string | null
-    gender?: NullableEnumGenderFieldUpdateOperationsInput | $Enums.Gender | null
+    gender?: NullableStringFieldUpdateOperationsInput | string | null
     interests?: ProfileUpdateinterestsInput | string[]
     avatarUrl?: NullableStringFieldUpdateOperationsInput | string | null
-    createdAt?: DateTimeFieldUpdateOperationsInput | Date | string
-    updatedAt?: DateTimeFieldUpdateOperationsInput | Date | string
   }
 
   export type ProfileCreateManyInput = {
@@ -10833,22 +10796,18 @@ export namespace Prisma {
     userId: string
     displayName?: string | null
     bio?: string | null
-    gender?: $Enums.Gender | null
+    gender?: string | null
     interests?: ProfileCreateinterestsInput | string[]
     avatarUrl?: string | null
-    createdAt?: Date | string
-    updatedAt?: Date | string
   }
 
   export type ProfileUpdateManyMutationInput = {
     id?: StringFieldUpdateOperationsInput | string
     displayName?: NullableStringFieldUpdateOperationsInput | string | null
     bio?: NullableStringFieldUpdateOperationsInput | string | null
-    gender?: NullableEnumGenderFieldUpdateOperationsInput | $Enums.Gender | null
+    gender?: NullableStringFieldUpdateOperationsInput | string | null
     interests?: ProfileUpdateinterestsInput | string[]
     avatarUrl?: NullableStringFieldUpdateOperationsInput | string | null
-    createdAt?: DateTimeFieldUpdateOperationsInput | Date | string
-    updatedAt?: DateTimeFieldUpdateOperationsInput | Date | string
   }
 
   export type ProfileUncheckedUpdateManyInput = {
@@ -10856,22 +10815,21 @@ export namespace Prisma {
     userId?: StringFieldUpdateOperationsInput | string
     displayName?: NullableStringFieldUpdateOperationsInput | string | null
     bio?: NullableStringFieldUpdateOperationsInput | string | null
-    gender?: NullableEnumGenderFieldUpdateOperationsInput | $Enums.Gender | null
+    gender?: NullableStringFieldUpdateOperationsInput | string | null
     interests?: ProfileUpdateinterestsInput | string[]
     avatarUrl?: NullableStringFieldUpdateOperationsInput | string | null
-    createdAt?: DateTimeFieldUpdateOperationsInput | Date | string
-    updatedAt?: DateTimeFieldUpdateOperationsInput | Date | string
   }
 
   export type FriendCreateInput = {
     id?: string
-    hourlyRate?: number | null
-    perMinuteRate?: number | null
+    hourlyRate?: number
+    perMinuteRate?: number
     availabilityJson?: string | null
     specialties?: FriendCreatespecialtiesInput | string[]
     isVerified?: boolean
     averageRating?: number
     totalReviews?: number
+    totalSessions?: number
     createdAt?: Date | string
     updatedAt?: Date | string
     user: UserCreateNestedOneWithoutFriendProfileInput
@@ -10880,26 +10838,28 @@ export namespace Prisma {
   export type FriendUncheckedCreateInput = {
     id?: string
     userId: string
-    hourlyRate?: number | null
-    perMinuteRate?: number | null
+    hourlyRate?: number
+    perMinuteRate?: number
     availabilityJson?: string | null
     specialties?: FriendCreatespecialtiesInput | string[]
     isVerified?: boolean
     averageRating?: number
     totalReviews?: number
+    totalSessions?: number
     createdAt?: Date | string
     updatedAt?: Date | string
   }
 
   export type FriendUpdateInput = {
     id?: StringFieldUpdateOperationsInput | string
-    hourlyRate?: NullableFloatFieldUpdateOperationsInput | number | null
-    perMinuteRate?: NullableFloatFieldUpdateOperationsInput | number | null
+    hourlyRate?: FloatFieldUpdateOperationsInput | number
+    perMinuteRate?: FloatFieldUpdateOperationsInput | number
     availabilityJson?: NullableStringFieldUpdateOperationsInput | string | null
     specialties?: FriendUpdatespecialtiesInput | string[]
     isVerified?: BoolFieldUpdateOperationsInput | boolean
     averageRating?: FloatFieldUpdateOperationsInput | number
     totalReviews?: IntFieldUpdateOperationsInput | number
+    totalSessions?: IntFieldUpdateOperationsInput | number
     createdAt?: DateTimeFieldUpdateOperationsInput | Date | string
     updatedAt?: DateTimeFieldUpdateOperationsInput | Date | string
     user?: UserUpdateOneRequiredWithoutFriendProfileNestedInput
@@ -10908,13 +10868,14 @@ export namespace Prisma {
   export type FriendUncheckedUpdateInput = {
     id?: StringFieldUpdateOperationsInput | string
     userId?: StringFieldUpdateOperationsInput | string
-    hourlyRate?: NullableFloatFieldUpdateOperationsInput | number | null
-    perMinuteRate?: NullableFloatFieldUpdateOperationsInput | number | null
+    hourlyRate?: FloatFieldUpdateOperationsInput | number
+    perMinuteRate?: FloatFieldUpdateOperationsInput | number
     availabilityJson?: NullableStringFieldUpdateOperationsInput | string | null
     specialties?: FriendUpdatespecialtiesInput | string[]
     isVerified?: BoolFieldUpdateOperationsInput | boolean
     averageRating?: FloatFieldUpdateOperationsInput | number
     totalReviews?: IntFieldUpdateOperationsInput | number
+    totalSessions?: IntFieldUpdateOperationsInput | number
     createdAt?: DateTimeFieldUpdateOperationsInput | Date | string
     updatedAt?: DateTimeFieldUpdateOperationsInput | Date | string
   }
@@ -10922,26 +10883,28 @@ export namespace Prisma {
   export type FriendCreateManyInput = {
     id?: string
     userId: string
-    hourlyRate?: number | null
-    perMinuteRate?: number | null
+    hourlyRate?: number
+    perMinuteRate?: number
     availabilityJson?: string | null
     specialties?: FriendCreatespecialtiesInput | string[]
     isVerified?: boolean
     averageRating?: number
     totalReviews?: number
+    totalSessions?: number
     createdAt?: Date | string
     updatedAt?: Date | string
   }
 
   export type FriendUpdateManyMutationInput = {
     id?: StringFieldUpdateOperationsInput | string
-    hourlyRate?: NullableFloatFieldUpdateOperationsInput | number | null
-    perMinuteRate?: NullableFloatFieldUpdateOperationsInput | number | null
+    hourlyRate?: FloatFieldUpdateOperationsInput | number
+    perMinuteRate?: FloatFieldUpdateOperationsInput | number
     availabilityJson?: NullableStringFieldUpdateOperationsInput | string | null
     specialties?: FriendUpdatespecialtiesInput | string[]
     isVerified?: BoolFieldUpdateOperationsInput | boolean
     averageRating?: FloatFieldUpdateOperationsInput | number
     totalReviews?: IntFieldUpdateOperationsInput | number
+    totalSessions?: IntFieldUpdateOperationsInput | number
     createdAt?: DateTimeFieldUpdateOperationsInput | Date | string
     updatedAt?: DateTimeFieldUpdateOperationsInput | Date | string
   }
@@ -10949,13 +10912,14 @@ export namespace Prisma {
   export type FriendUncheckedUpdateManyInput = {
     id?: StringFieldUpdateOperationsInput | string
     userId?: StringFieldUpdateOperationsInput | string
-    hourlyRate?: NullableFloatFieldUpdateOperationsInput | number | null
-    perMinuteRate?: NullableFloatFieldUpdateOperationsInput | number | null
+    hourlyRate?: FloatFieldUpdateOperationsInput | number
+    perMinuteRate?: FloatFieldUpdateOperationsInput | number
     availabilityJson?: NullableStringFieldUpdateOperationsInput | string | null
     specialties?: FriendUpdatespecialtiesInput | string[]
     isVerified?: BoolFieldUpdateOperationsInput | boolean
     averageRating?: FloatFieldUpdateOperationsInput | number
     totalReviews?: IntFieldUpdateOperationsInput | number
+    totalSessions?: IntFieldUpdateOperationsInput | number
     createdAt?: DateTimeFieldUpdateOperationsInput | Date | string
     updatedAt?: DateTimeFieldUpdateOperationsInput | Date | string
   }
@@ -11429,13 +11393,6 @@ export namespace Prisma {
     not?: NestedStringNullableFilter<$PrismaModel> | string | null
   }
 
-  export type EnumGenderNullableFilter<$PrismaModel = never> = {
-    equals?: $Enums.Gender | EnumGenderFieldRefInput<$PrismaModel> | null
-    in?: $Enums.Gender[] | ListEnumGenderFieldRefInput<$PrismaModel> | null
-    notIn?: $Enums.Gender[] | ListEnumGenderFieldRefInput<$PrismaModel> | null
-    not?: NestedEnumGenderNullableFilter<$PrismaModel> | $Enums.Gender | null
-  }
-
   export type StringNullableListFilter<$PrismaModel = never> = {
     equals?: string[] | ListStringFieldRefInput<$PrismaModel> | null
     has?: string | StringFieldRefInput<$PrismaModel> | null
@@ -11462,8 +11419,6 @@ export namespace Prisma {
     gender?: SortOrder
     interests?: SortOrder
     avatarUrl?: SortOrder
-    createdAt?: SortOrder
-    updatedAt?: SortOrder
   }
 
   export type ProfileMaxOrderByAggregateInput = {
@@ -11473,8 +11428,6 @@ export namespace Prisma {
     bio?: SortOrder
     gender?: SortOrder
     avatarUrl?: SortOrder
-    createdAt?: SortOrder
-    updatedAt?: SortOrder
   }
 
   export type ProfileMinOrderByAggregateInput = {
@@ -11484,8 +11437,6 @@ export namespace Prisma {
     bio?: SortOrder
     gender?: SortOrder
     avatarUrl?: SortOrder
-    createdAt?: SortOrder
-    updatedAt?: SortOrder
   }
 
   export type StringNullableWithAggregatesFilter<$PrismaModel = never> = {
@@ -11506,32 +11457,6 @@ export namespace Prisma {
     _max?: NestedStringNullableFilter<$PrismaModel>
   }
 
-  export type EnumGenderNullableWithAggregatesFilter<$PrismaModel = never> = {
-    equals?: $Enums.Gender | EnumGenderFieldRefInput<$PrismaModel> | null
-    in?: $Enums.Gender[] | ListEnumGenderFieldRefInput<$PrismaModel> | null
-    notIn?: $Enums.Gender[] | ListEnumGenderFieldRefInput<$PrismaModel> | null
-    not?: NestedEnumGenderNullableWithAggregatesFilter<$PrismaModel> | $Enums.Gender | null
-    _count?: NestedIntNullableFilter<$PrismaModel>
-    _min?: NestedEnumGenderNullableFilter<$PrismaModel>
-    _max?: NestedEnumGenderNullableFilter<$PrismaModel>
-  }
-
-  export type FloatNullableFilter<$PrismaModel = never> = {
-    equals?: number | FloatFieldRefInput<$PrismaModel> | null
-    in?: number[] | ListFloatFieldRefInput<$PrismaModel> | null
-    notIn?: number[] | ListFloatFieldRefInput<$PrismaModel> | null
-    lt?: number | FloatFieldRefInput<$PrismaModel>
-    lte?: number | FloatFieldRefInput<$PrismaModel>
-    gt?: number | FloatFieldRefInput<$PrismaModel>
-    gte?: number | FloatFieldRefInput<$PrismaModel>
-    not?: NestedFloatNullableFilter<$PrismaModel> | number | null
-  }
-
-  export type BoolFilter<$PrismaModel = never> = {
-    equals?: boolean | BooleanFieldRefInput<$PrismaModel>
-    not?: NestedBoolFilter<$PrismaModel> | boolean
-  }
-
   export type FloatFilter<$PrismaModel = never> = {
     equals?: number | FloatFieldRefInput<$PrismaModel>
     in?: number[] | ListFloatFieldRefInput<$PrismaModel>
@@ -11541,6 +11466,11 @@ export namespace Prisma {
     gt?: number | FloatFieldRefInput<$PrismaModel>
     gte?: number | FloatFieldRefInput<$PrismaModel>
     not?: NestedFloatFilter<$PrismaModel> | number
+  }
+
+  export type BoolFilter<$PrismaModel = never> = {
+    equals?: boolean | BooleanFieldRefInput<$PrismaModel>
+    not?: NestedBoolFilter<$PrismaModel> | boolean
   }
 
   export type IntFilter<$PrismaModel = never> = {
@@ -11564,6 +11494,7 @@ export namespace Prisma {
     isVerified?: SortOrder
     averageRating?: SortOrder
     totalReviews?: SortOrder
+    totalSessions?: SortOrder
     createdAt?: SortOrder
     updatedAt?: SortOrder
   }
@@ -11573,6 +11504,7 @@ export namespace Prisma {
     perMinuteRate?: SortOrder
     averageRating?: SortOrder
     totalReviews?: SortOrder
+    totalSessions?: SortOrder
   }
 
   export type FriendMaxOrderByAggregateInput = {
@@ -11584,6 +11516,7 @@ export namespace Prisma {
     isVerified?: SortOrder
     averageRating?: SortOrder
     totalReviews?: SortOrder
+    totalSessions?: SortOrder
     createdAt?: SortOrder
     updatedAt?: SortOrder
   }
@@ -11597,6 +11530,7 @@ export namespace Prisma {
     isVerified?: SortOrder
     averageRating?: SortOrder
     totalReviews?: SortOrder
+    totalSessions?: SortOrder
     createdAt?: SortOrder
     updatedAt?: SortOrder
   }
@@ -11606,30 +11540,7 @@ export namespace Prisma {
     perMinuteRate?: SortOrder
     averageRating?: SortOrder
     totalReviews?: SortOrder
-  }
-
-  export type FloatNullableWithAggregatesFilter<$PrismaModel = never> = {
-    equals?: number | FloatFieldRefInput<$PrismaModel> | null
-    in?: number[] | ListFloatFieldRefInput<$PrismaModel> | null
-    notIn?: number[] | ListFloatFieldRefInput<$PrismaModel> | null
-    lt?: number | FloatFieldRefInput<$PrismaModel>
-    lte?: number | FloatFieldRefInput<$PrismaModel>
-    gt?: number | FloatFieldRefInput<$PrismaModel>
-    gte?: number | FloatFieldRefInput<$PrismaModel>
-    not?: NestedFloatNullableWithAggregatesFilter<$PrismaModel> | number | null
-    _count?: NestedIntNullableFilter<$PrismaModel>
-    _avg?: NestedFloatNullableFilter<$PrismaModel>
-    _sum?: NestedFloatNullableFilter<$PrismaModel>
-    _min?: NestedFloatNullableFilter<$PrismaModel>
-    _max?: NestedFloatNullableFilter<$PrismaModel>
-  }
-
-  export type BoolWithAggregatesFilter<$PrismaModel = never> = {
-    equals?: boolean | BooleanFieldRefInput<$PrismaModel>
-    not?: NestedBoolWithAggregatesFilter<$PrismaModel> | boolean
-    _count?: NestedIntFilter<$PrismaModel>
-    _min?: NestedBoolFilter<$PrismaModel>
-    _max?: NestedBoolFilter<$PrismaModel>
+    totalSessions?: SortOrder
   }
 
   export type FloatWithAggregatesFilter<$PrismaModel = never> = {
@@ -11646,6 +11557,14 @@ export namespace Prisma {
     _sum?: NestedFloatFilter<$PrismaModel>
     _min?: NestedFloatFilter<$PrismaModel>
     _max?: NestedFloatFilter<$PrismaModel>
+  }
+
+  export type BoolWithAggregatesFilter<$PrismaModel = never> = {
+    equals?: boolean | BooleanFieldRefInput<$PrismaModel>
+    not?: NestedBoolWithAggregatesFilter<$PrismaModel> | boolean
+    _count?: NestedIntFilter<$PrismaModel>
+    _min?: NestedBoolFilter<$PrismaModel>
+    _max?: NestedBoolFilter<$PrismaModel>
   }
 
   export type IntWithAggregatesFilter<$PrismaModel = never> = {
@@ -12353,10 +12272,6 @@ export namespace Prisma {
     set?: string | null
   }
 
-  export type NullableEnumGenderFieldUpdateOperationsInput = {
-    set?: $Enums.Gender | null
-  }
-
   export type ProfileUpdateinterestsInput = {
     set?: string[]
     push?: string | string[]
@@ -12380,8 +12295,8 @@ export namespace Prisma {
     connect?: UserWhereUniqueInput
   }
 
-  export type NullableFloatFieldUpdateOperationsInput = {
-    set?: number | null
+  export type FloatFieldUpdateOperationsInput = {
+    set?: number
     increment?: number
     decrement?: number
     multiply?: number
@@ -12395,14 +12310,6 @@ export namespace Prisma {
 
   export type BoolFieldUpdateOperationsInput = {
     set?: boolean
-  }
-
-  export type FloatFieldUpdateOperationsInput = {
-    set?: number
-    increment?: number
-    decrement?: number
-    multiply?: number
-    divide?: number
   }
 
   export type IntFieldUpdateOperationsInput = {
@@ -12771,13 +12678,6 @@ export namespace Prisma {
     not?: NestedStringNullableFilter<$PrismaModel> | string | null
   }
 
-  export type NestedEnumGenderNullableFilter<$PrismaModel = never> = {
-    equals?: $Enums.Gender | EnumGenderFieldRefInput<$PrismaModel> | null
-    in?: $Enums.Gender[] | ListEnumGenderFieldRefInput<$PrismaModel> | null
-    notIn?: $Enums.Gender[] | ListEnumGenderFieldRefInput<$PrismaModel> | null
-    not?: NestedEnumGenderNullableFilter<$PrismaModel> | $Enums.Gender | null
-  }
-
   export type NestedStringNullableWithAggregatesFilter<$PrismaModel = never> = {
     equals?: string | StringFieldRefInput<$PrismaModel> | null
     in?: string[] | ListStringFieldRefInput<$PrismaModel> | null
@@ -12806,32 +12706,6 @@ export namespace Prisma {
     not?: NestedIntNullableFilter<$PrismaModel> | number | null
   }
 
-  export type NestedEnumGenderNullableWithAggregatesFilter<$PrismaModel = never> = {
-    equals?: $Enums.Gender | EnumGenderFieldRefInput<$PrismaModel> | null
-    in?: $Enums.Gender[] | ListEnumGenderFieldRefInput<$PrismaModel> | null
-    notIn?: $Enums.Gender[] | ListEnumGenderFieldRefInput<$PrismaModel> | null
-    not?: NestedEnumGenderNullableWithAggregatesFilter<$PrismaModel> | $Enums.Gender | null
-    _count?: NestedIntNullableFilter<$PrismaModel>
-    _min?: NestedEnumGenderNullableFilter<$PrismaModel>
-    _max?: NestedEnumGenderNullableFilter<$PrismaModel>
-  }
-
-  export type NestedFloatNullableFilter<$PrismaModel = never> = {
-    equals?: number | FloatFieldRefInput<$PrismaModel> | null
-    in?: number[] | ListFloatFieldRefInput<$PrismaModel> | null
-    notIn?: number[] | ListFloatFieldRefInput<$PrismaModel> | null
-    lt?: number | FloatFieldRefInput<$PrismaModel>
-    lte?: number | FloatFieldRefInput<$PrismaModel>
-    gt?: number | FloatFieldRefInput<$PrismaModel>
-    gte?: number | FloatFieldRefInput<$PrismaModel>
-    not?: NestedFloatNullableFilter<$PrismaModel> | number | null
-  }
-
-  export type NestedBoolFilter<$PrismaModel = never> = {
-    equals?: boolean | BooleanFieldRefInput<$PrismaModel>
-    not?: NestedBoolFilter<$PrismaModel> | boolean
-  }
-
   export type NestedFloatFilter<$PrismaModel = never> = {
     equals?: number | FloatFieldRefInput<$PrismaModel>
     in?: number[] | ListFloatFieldRefInput<$PrismaModel>
@@ -12843,28 +12717,9 @@ export namespace Prisma {
     not?: NestedFloatFilter<$PrismaModel> | number
   }
 
-  export type NestedFloatNullableWithAggregatesFilter<$PrismaModel = never> = {
-    equals?: number | FloatFieldRefInput<$PrismaModel> | null
-    in?: number[] | ListFloatFieldRefInput<$PrismaModel> | null
-    notIn?: number[] | ListFloatFieldRefInput<$PrismaModel> | null
-    lt?: number | FloatFieldRefInput<$PrismaModel>
-    lte?: number | FloatFieldRefInput<$PrismaModel>
-    gt?: number | FloatFieldRefInput<$PrismaModel>
-    gte?: number | FloatFieldRefInput<$PrismaModel>
-    not?: NestedFloatNullableWithAggregatesFilter<$PrismaModel> | number | null
-    _count?: NestedIntNullableFilter<$PrismaModel>
-    _avg?: NestedFloatNullableFilter<$PrismaModel>
-    _sum?: NestedFloatNullableFilter<$PrismaModel>
-    _min?: NestedFloatNullableFilter<$PrismaModel>
-    _max?: NestedFloatNullableFilter<$PrismaModel>
-  }
-
-  export type NestedBoolWithAggregatesFilter<$PrismaModel = never> = {
+  export type NestedBoolFilter<$PrismaModel = never> = {
     equals?: boolean | BooleanFieldRefInput<$PrismaModel>
-    not?: NestedBoolWithAggregatesFilter<$PrismaModel> | boolean
-    _count?: NestedIntFilter<$PrismaModel>
-    _min?: NestedBoolFilter<$PrismaModel>
-    _max?: NestedBoolFilter<$PrismaModel>
+    not?: NestedBoolFilter<$PrismaModel> | boolean
   }
 
   export type NestedFloatWithAggregatesFilter<$PrismaModel = never> = {
@@ -12881,6 +12736,14 @@ export namespace Prisma {
     _sum?: NestedFloatFilter<$PrismaModel>
     _min?: NestedFloatFilter<$PrismaModel>
     _max?: NestedFloatFilter<$PrismaModel>
+  }
+
+  export type NestedBoolWithAggregatesFilter<$PrismaModel = never> = {
+    equals?: boolean | BooleanFieldRefInput<$PrismaModel>
+    not?: NestedBoolWithAggregatesFilter<$PrismaModel> | boolean
+    _count?: NestedIntFilter<$PrismaModel>
+    _min?: NestedBoolFilter<$PrismaModel>
+    _max?: NestedBoolFilter<$PrismaModel>
   }
 
   export type NestedIntWithAggregatesFilter<$PrismaModel = never> = {
@@ -12954,6 +12817,17 @@ export namespace Prisma {
     _max?: NestedIntNullableFilter<$PrismaModel>
   }
 
+  export type NestedFloatNullableFilter<$PrismaModel = never> = {
+    equals?: number | FloatFieldRefInput<$PrismaModel> | null
+    in?: number[] | ListFloatFieldRefInput<$PrismaModel> | null
+    notIn?: number[] | ListFloatFieldRefInput<$PrismaModel> | null
+    lt?: number | FloatFieldRefInput<$PrismaModel>
+    lte?: number | FloatFieldRefInput<$PrismaModel>
+    gt?: number | FloatFieldRefInput<$PrismaModel>
+    gte?: number | FloatFieldRefInput<$PrismaModel>
+    not?: NestedFloatNullableFilter<$PrismaModel> | number | null
+  }
+
   export type NestedEnumSessionStatusWithAggregatesFilter<$PrismaModel = never> = {
     equals?: $Enums.SessionStatus | EnumSessionStatusFieldRefInput<$PrismaModel>
     in?: $Enums.SessionStatus[] | ListEnumSessionStatusFieldRefInput<$PrismaModel>
@@ -12995,22 +12869,18 @@ export namespace Prisma {
     id?: string
     displayName?: string | null
     bio?: string | null
-    gender?: $Enums.Gender | null
+    gender?: string | null
     interests?: ProfileCreateinterestsInput | string[]
     avatarUrl?: string | null
-    createdAt?: Date | string
-    updatedAt?: Date | string
   }
 
   export type ProfileUncheckedCreateWithoutUserInput = {
     id?: string
     displayName?: string | null
     bio?: string | null
-    gender?: $Enums.Gender | null
+    gender?: string | null
     interests?: ProfileCreateinterestsInput | string[]
     avatarUrl?: string | null
-    createdAt?: Date | string
-    updatedAt?: Date | string
   }
 
   export type ProfileCreateOrConnectWithoutUserInput = {
@@ -13020,26 +12890,28 @@ export namespace Prisma {
 
   export type FriendCreateWithoutUserInput = {
     id?: string
-    hourlyRate?: number | null
-    perMinuteRate?: number | null
+    hourlyRate?: number
+    perMinuteRate?: number
     availabilityJson?: string | null
     specialties?: FriendCreatespecialtiesInput | string[]
     isVerified?: boolean
     averageRating?: number
     totalReviews?: number
+    totalSessions?: number
     createdAt?: Date | string
     updatedAt?: Date | string
   }
 
   export type FriendUncheckedCreateWithoutUserInput = {
     id?: string
-    hourlyRate?: number | null
-    perMinuteRate?: number | null
+    hourlyRate?: number
+    perMinuteRate?: number
     availabilityJson?: string | null
     specialties?: FriendCreatespecialtiesInput | string[]
     isVerified?: boolean
     averageRating?: number
     totalReviews?: number
+    totalSessions?: number
     createdAt?: Date | string
     updatedAt?: Date | string
   }
@@ -13308,22 +13180,18 @@ export namespace Prisma {
     id?: StringFieldUpdateOperationsInput | string
     displayName?: NullableStringFieldUpdateOperationsInput | string | null
     bio?: NullableStringFieldUpdateOperationsInput | string | null
-    gender?: NullableEnumGenderFieldUpdateOperationsInput | $Enums.Gender | null
+    gender?: NullableStringFieldUpdateOperationsInput | string | null
     interests?: ProfileUpdateinterestsInput | string[]
     avatarUrl?: NullableStringFieldUpdateOperationsInput | string | null
-    createdAt?: DateTimeFieldUpdateOperationsInput | Date | string
-    updatedAt?: DateTimeFieldUpdateOperationsInput | Date | string
   }
 
   export type ProfileUncheckedUpdateWithoutUserInput = {
     id?: StringFieldUpdateOperationsInput | string
     displayName?: NullableStringFieldUpdateOperationsInput | string | null
     bio?: NullableStringFieldUpdateOperationsInput | string | null
-    gender?: NullableEnumGenderFieldUpdateOperationsInput | $Enums.Gender | null
+    gender?: NullableStringFieldUpdateOperationsInput | string | null
     interests?: ProfileUpdateinterestsInput | string[]
     avatarUrl?: NullableStringFieldUpdateOperationsInput | string | null
-    createdAt?: DateTimeFieldUpdateOperationsInput | Date | string
-    updatedAt?: DateTimeFieldUpdateOperationsInput | Date | string
   }
 
   export type FriendUpsertWithoutUserInput = {
@@ -13339,26 +13207,28 @@ export namespace Prisma {
 
   export type FriendUpdateWithoutUserInput = {
     id?: StringFieldUpdateOperationsInput | string
-    hourlyRate?: NullableFloatFieldUpdateOperationsInput | number | null
-    perMinuteRate?: NullableFloatFieldUpdateOperationsInput | number | null
+    hourlyRate?: FloatFieldUpdateOperationsInput | number
+    perMinuteRate?: FloatFieldUpdateOperationsInput | number
     availabilityJson?: NullableStringFieldUpdateOperationsInput | string | null
     specialties?: FriendUpdatespecialtiesInput | string[]
     isVerified?: BoolFieldUpdateOperationsInput | boolean
     averageRating?: FloatFieldUpdateOperationsInput | number
     totalReviews?: IntFieldUpdateOperationsInput | number
+    totalSessions?: IntFieldUpdateOperationsInput | number
     createdAt?: DateTimeFieldUpdateOperationsInput | Date | string
     updatedAt?: DateTimeFieldUpdateOperationsInput | Date | string
   }
 
   export type FriendUncheckedUpdateWithoutUserInput = {
     id?: StringFieldUpdateOperationsInput | string
-    hourlyRate?: NullableFloatFieldUpdateOperationsInput | number | null
-    perMinuteRate?: NullableFloatFieldUpdateOperationsInput | number | null
+    hourlyRate?: FloatFieldUpdateOperationsInput | number
+    perMinuteRate?: FloatFieldUpdateOperationsInput | number
     availabilityJson?: NullableStringFieldUpdateOperationsInput | string | null
     specialties?: FriendUpdatespecialtiesInput | string[]
     isVerified?: BoolFieldUpdateOperationsInput | boolean
     averageRating?: FloatFieldUpdateOperationsInput | number
     totalReviews?: IntFieldUpdateOperationsInput | number
+    totalSessions?: IntFieldUpdateOperationsInput | number
     createdAt?: DateTimeFieldUpdateOperationsInput | Date | string
     updatedAt?: DateTimeFieldUpdateOperationsInput | Date | string
   }
