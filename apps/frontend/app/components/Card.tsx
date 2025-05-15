@@ -8,6 +8,7 @@ import { useRouter } from "next/navigation";
 
 
 interface CardProps {
+  id: string
   profileImg: string;
   name: string;
   rating: number;
@@ -17,7 +18,7 @@ interface CardProps {
   specialties: string[];
 }
 
-const Card: FC<CardProps> = ({ profileImg, name, rating, sessions, ratePerMin, specialties, bio}) => {
+const Card: FC<CardProps> = ({id, profileImg, name, rating, sessions, ratePerMin, specialties, bio}) => {
   const navigate = useRouter();
   console.log("bio", rating, ratePerMin)
   return (
@@ -68,7 +69,7 @@ const Card: FC<CardProps> = ({ profileImg, name, rating, sessions, ratePerMin, s
         <Button className="w-5/12 bg-[#3B7385]">Connect</Button>
         <Button
           className="w-5/12 bg-white text-black border"
-          onClick={() => navigate.push("/profile/1")}
+          onClick={() => navigate.push(`/profile/${id}`)}
         >
           View Profile
         </Button>

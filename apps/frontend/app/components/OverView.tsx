@@ -4,10 +4,10 @@ import React, { FC } from 'react'
 
 
 interface OverViewIF {
-  interest: string[],
+  interest: String[],
 
-  about: string,
-  specialties: {id:string, name: string; description: string }[]
+  about: String,
+  specialties: String[]
   
 }
 const OverView: FC<OverViewIF> = ({interest,about, specialties}) => {
@@ -21,8 +21,8 @@ const OverView: FC<OverViewIF> = ({interest,about, specialties}) => {
       <div>
         <h1 className='text-xl font-semibold pb-2'>Interest</h1>
        <div className='flex gap-2'>
-       {interest.map((item) => (
-              <div key={item} className="rounded-2xl bg-amber-300 py-1 px-2 text-xs">
+       {interest.map((item, id) => (
+              <div key={id} className="rounded-2xl bg-amber-300 py-1 px-2 text-xs">
                {item}
               </div>
             ))}
@@ -33,8 +33,8 @@ const OverView: FC<OverViewIF> = ({interest,about, specialties}) => {
         <div>
         {specialties.map((item, id) => (
           <div key={id}>
-            <h3 className='font-medium'>{item.name}</h3>
-            <p className='text-sm'>{item?.description}</p>
+            <h3 className='font-medium'>{item}</h3>
+            {/* <p className='text-sm'>{item?.description}</p> */}
 
           </div>
         ))}

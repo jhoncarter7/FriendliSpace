@@ -1,22 +1,25 @@
 "use client";
 import { IconClock, IconStarFilled } from "@tabler/icons-react";
 import Image from "next/image";
-import React from "react";
+import React, { FC } from "react";
 import OverView from "./OverView";
 import Review from "./Review";
+import { ProfileIF } from "@repo/common/types";
+
+
 
 const data = Array.from({ length: 2 }, (_, i) => i + 1);
 const content = ["Overview", "Reviews"];
-const Profile = (friend: any) => {
+const Profile: FC<ProfileIF> = ({id, name, avatar, bio, interests, ratePerMinute, rating, totalSessions, specialties}) => {
   const [active, setActive] = React.useState(0);
-  const {id, name, avatar, bio, interests, ratePerMinute, rating, totalSessions, specialties} = friend.friend
+
 
   return (
     <div className=" rounded-lg px-6 py-4 border-[1px] shadow-md ">
       <div className="flex justify-between pb-6">
         <div className="flex gap-4 items-center">
           <Image
-            src={avatar}
+            src={avatar.toString()}
             width={50}
             height={50}
             alt="profile image"

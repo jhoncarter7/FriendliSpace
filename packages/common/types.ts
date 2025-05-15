@@ -1,7 +1,7 @@
 
 
 
-export interface GetUserProfileType{
+export interface GetUserProfileType {
     id: String,
     role: String,
     profile: {
@@ -16,5 +16,21 @@ export interface GetUserProfileType{
         isVerified: Boolean,
         averageRating: Float32Array,
         totalReviews: Int32Array,
+        hourlyRate: Int32Array,
+        perMinuteRate: Int32Array
+        totalSessions: Int32Array
     }
+}
+
+
+export interface ProfileIF {
+    id: String,
+    name: String,
+    avatar: String,
+    bio: String,
+    interests: [String],
+    ratePerMinute: Int32Array,
+    rating: Float32Array,
+    totalSessions: Int32Array,
+    specialties: [String]
 }

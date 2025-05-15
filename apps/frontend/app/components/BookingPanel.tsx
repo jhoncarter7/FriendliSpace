@@ -6,13 +6,13 @@ import Toggle from './ui/toggle';
 import { Button } from './ui/button';
 
 interface BookingPanelIF{
-    name: string,
-     rate: number,
-     ratePerMinute: number
+    name: String,
+     rate: Float32Array,
+     ratePerMinute: Int32Array
 }
 const BookingPanel: React.FC<BookingPanelIF> = ({name, rate, ratePerMinute}) => {
   console.log("ratePerMinute", ratePerMinute)
-    const formattedRate = rate.toFixed(2);  
+    const formattedRate = rate;  
 
   const [blurFace, setBlurFace] = useState(false);
   const [modifyVoice, setModifyVoice] = useState(false);
@@ -90,8 +90,8 @@ const BookingPanel: React.FC<BookingPanelIF> = ({name, rate, ratePerMinute}) => 
       <div className="mb-6">
         <h3 className="font-medium mb-2">Rate</h3>
         <div className="flex items-baseline">
-          <span className="font-bold">{ratePerMinute}</span>
-          <span className="text-gray-600 ml-1">per minute</span>
+          <span className="font-bold">${ratePerMinute}/</span>
+          <span className="text-gray-600 ml-1">minute</span>
         </div>
         <p className="text-sm text-gray-600 mt-1">
           You're only charged for the time you use

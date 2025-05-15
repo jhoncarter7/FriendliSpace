@@ -10,4 +10,5 @@ export const Api = {
     GETCURRENTUSERPROFILE: `${API_BASE_URL}/api/users/me`,
     UPDATECURRENTUSERPROFILE: `${API_BASE_URL}/api/users/me/profile`,
     UPDATEFRIENDPROFILE: `${API_BASE_URL}/api/friends/me/details`,
+    GETUSERPROFILEBYID: `${API_BASE_URL}/api/users`,
 }
