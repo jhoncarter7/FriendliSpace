@@ -28,14 +28,13 @@ const UpdateProfile = () => {
   const [interestInput, setInterestInput] = useState("");
   const [avatar, setAvatar] = useState("");
 
-  // Friend-specific state (only for FRIEND role)
   const [specialties, setSpecialties] = useState<string[]>([]);
   const [hourlyRate, setHourlyRate] = useState(0);
   const [perMinuteRate, setPerMinuteRate] = useState(0);
   const [availabilityJson, setAvailabilityJson] = useState("");
   const [loading, setLoading] = useState(false);
-console.log("availabilityJson", availabilityJson)
-  // Fetch user profile on mount
+
+
   useEffect(() => {
     const fetchUserProfile = async () => {
       setLoading(true);
