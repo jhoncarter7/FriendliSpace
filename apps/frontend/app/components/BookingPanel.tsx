@@ -4,6 +4,8 @@ import { Card } from './ui/card'
 import { IconBadge4k, IconCalendarEvent, IconFlag, IconHeadphones, IconHeart, IconVideo } from '@tabler/icons-react';
 import Toggle from './ui/toggle';
 import { Button } from './ui/button';
+import { v4 as uuid } from 'uuid'
+import { useRouter } from 'next/navigation';
 
 interface BookingPanelIF{
     name: String,
@@ -16,8 +18,14 @@ const BookingPanel: React.FC<BookingPanelIF> = ({name, rate, ratePerMinute}) => 
 
   const [blurFace, setBlurFace] = useState(false);
   const [modifyVoice, setModifyVoice] = useState(false);
-
+  const router = useRouter()
   const [communicationType, setCommunicationType] = useState<'text' | 'voice' | 'video'>('video');
+    const handleConnect = () => {
+      console.log("start video")
+    const roomId = uuid()
+    // you could POST to your booking API here before navigating...
+    router.push(`/video/${roomId}`)
+  }
   return (
     <div className=''>
     <Card className="p-6 sticky top-24">
@@ -100,6 +108,7 @@ const BookingPanel: React.FC<BookingPanelIF> = ({name, rate, ratePerMinute}) => 
       
       <Button
         className="mb-3 w-full"
+        onClick={handleConnect}
       >
         Start Session Now
       </Button>
