@@ -11,4 +11,6 @@ export const Api = {
     UPDATECURRENTUSERPROFILE: `${API_BASE_URL}/api/users/me/profile`,
     UPDATEFRIENDPROFILE: `${API_BASE_URL}/api/friends/me/details`,
     GETUSERPROFILEBYID: `${API_BASE_URL}/api/users`,
+    GET_SESSIONS: `${API_BASE_URL}/api/sessions`,
+    CREATE_SESSION: `${API_BASE_URL}/api/sessions`,
 }

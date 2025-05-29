@@ -34,3 +34,8 @@ export interface ProfileIF {
     totalSessions: Int32Array,
     specialties: [String]
 }
+
+export type SignalPayload = | { type: "join"; roomId: string }
+    | { type: "offer"; sdp: RTCSessionDescriptionInit; roomId: string }
+    | { type: "answer"; sdp: RTCSessionDescriptionInit; roomId: string }
+    | { type: "candidate"; candidate: RTCIceCandidateInit; roomId: string }

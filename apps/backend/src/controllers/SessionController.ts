@@ -23,12 +23,12 @@ const createSession = async (
     // 1. VALIDATE input - Use validation library!
     // const validatedBody = CreateSessionSchema.parse(req.body); // Example with Zod
     const body = req.body;
-    const { friendId, communicationType } = body;
+    const { friendId, communicationType, status, DateTime } = body;
 
-    if (!friendId || !communicationType) {
+    if (!friendId || !communicationType || !status) {
       res
         .status(400)
-        .json({ message: "Friend ID and communication type required." });
+        .json({ message: "Friend ID, communication type, and status required." });
       return;
     }
     const normalize = communicationType.toUpperCase()
@@ -58,7 +58,7 @@ const createSession = async (
     }
 
     const newSession = await prismaClient.session.create({
-      data: { seekerId, friendId, status: "PENDING", communicationType: normalize },
+      data: { seekerId, friendId, status: "PENDING", communicationType: normalize , startTime: DateTime ? new Date(DateTime) : undefined },
       include: {
         seeker: {
           select: {
@@ -204,8 +204,9 @@ const getUserSessions = async (
       res.status(401).json({ message: "Unauthorized" });
       return;
     }
+console.log("query in session", req.query);
 
-    const { status, role, page = 1, limit = 20 } = req.query;
+    const { status, role, page , limit } = req.query;
     const pageNum = Math.max(1, parseInt(page as string, 10));
     const limitNum = Math.max(1, parseInt(limit as string, 10));
     const skip = (pageNum - 1) * limitNum;

@@ -5,134 +5,137 @@ import { IconBadge4k, IconCalendarEvent, IconFlag, IconHeadphones, IconHeart, Ic
 import Toggle from './ui/toggle';
 import { Button } from './ui/button';
 import { v4 as uuid } from 'uuid'
-import { useRouter } from 'next/navigation';
+import { useParams, useRouter } from 'next/navigation';
+import { DateTimePickerForm } from './DateTimePicker';
 
-interface BookingPanelIF{
-    name: String,
-     rate: Float32Array,
-     ratePerMinute: Int32Array
+interface BookingPanelIF {
+  name: String,
+  rate: Float32Array,
+  ratePerMinute: Int32Array
 }
-const BookingPanel: React.FC<BookingPanelIF> = ({name, rate, ratePerMinute}) => {
+const BookingPanel: React.FC<BookingPanelIF> = ({ name, rate, ratePerMinute }) => {
   console.log("ratePerMinute", ratePerMinute)
-    const formattedRate = rate;  
-
+  const formattedRate = rate;
+  const {profileId} = useParams()
+  console.log("profileId", profileId)
   const [blurFace, setBlurFace] = useState(false);
   const [modifyVoice, setModifyVoice] = useState(false);
   const router = useRouter()
   const [communicationType, setCommunicationType] = useState<'text' | 'voice' | 'video'>('video');
-    const handleConnect = () => {
-      console.log("start video")
+  const handleConnect = () => {
+    console.log("start video")
     const roomId = uuid()
+
     // you could POST to your booking API here before navigating...
     router.push(`/video/${roomId}`)
   }
   return (
     <div className=''>
-    <Card className="p-6 sticky top-24">
-      <h2 className="text-xl font-semibold mb-4">Connect with {name}</h2>
-      
-      <div className="mb-6">
-        <label className="block text-sm font-medium text-gray-700 mb-2">
-          Communication Type
-        </label>
-        <div className="grid grid-cols-3 gap-2">
-          <button
-            className={`flex flex-col items-center justify-center py-3 px-2 rounded-lg border ${
-              communicationType === 'text'
+      <Card className="p-6 sticky top-24">
+        <h2 className="text-xl font-semibold ">Connect with {name}</h2>
+
+        <div className="">
+          <label className="block text-sm font-medium text-gray-700 mb-2">
+            Communication Type
+          </label>
+          <div className="grid grid-cols-3 gap-2">
+            <button
+              className={`flex flex-col items-center justify-center py-3 px-2 rounded-lg border ${communicationType === 'text'
                 ? ' border-primary text-primary'
                 : 'border-gray-300 text-gray-700 hover:bg-gray-50'
-            }`}
-            onClick={() => setCommunicationType('text')}
-          >
-            <IconBadge4k  className="h-5 w-5 mb-1" />
-            <span className="text-xs">Text</span>
-          </button>
-          <button
-            className={`flex flex-col items-center justify-center py-3 px-2 rounded-lg border ${
-              communicationType === 'voice'
+                }`}
+              onClick={() => setCommunicationType('text')}
+            >
+              <IconBadge4k className="h-5 w-5 mb-1" />
+              <span className="text-xs">Text</span>
+            </button>
+            <button
+              className={`flex flex-col items-center justify-center py-3 px-2 rounded-lg border ${communicationType === 'voice'
                 ? ' border-primary text-primary'
                 : 'border-gray-300 text-gray-700 hover:bg-gray-50'
-            }`}
-            onClick={() => setCommunicationType('voice')}
-          >
-            <IconHeadphones  className="h-5 w-5 mb-1" />
-            <span className="text-xs">Voice</span>
-          </button>
-          <button
-            className={`flex flex-col items-center justify-center py-3 px-2 rounded-lg border ${
-              communicationType === 'video'
+                }`}
+              onClick={() => setCommunicationType('voice')}
+            >
+              <IconHeadphones className="h-5 w-5 mb-1" />
+              <span className="text-xs">Voice</span>
+            </button>
+            <button
+              className={`flex flex-col items-center justify-center py-3 px-2 rounded-lg border ${communicationType === 'video'
                 ? ' border-primary text-primary'
                 : 'border-gray-300 text-gray-700 hover:bg-gray-50'
-            }`}
-            onClick={() => setCommunicationType('video')}
-          >
-            <IconVideo  className="h-5 w-5 mb-1" />
-            <span className="text-xs">Video</span>
+                }`}
+              onClick={() => setCommunicationType('video')}
+            >
+              <IconVideo className="h-5 w-5 mb-1" />
+              <span className="text-xs">Video</span>
+            </button>
+          </div>
+        </div>
+
+        <div >
+          <h3 className="font-medium mb-3">Privacy Settings</h3>
+          <div className="space-y-3 space-x-3">
+            {communicationType === 'video' && (
+              <Toggle
+                isChecked={blurFace}
+                onChange={setBlurFace}
+                label="Blur my face"
+                color="accent"
+              //   className='bg-primary'
+              />
+            )}
+            {(communicationType === 'voice' || communicationType === 'video') && (
+              <Toggle
+                isChecked={modifyVoice}
+                onChange={setModifyVoice}
+                label="Modify my voice"
+                color="primary"
+              />
+            )}
+          </div>
+        </div>
+
+        <div >
+          <h3 className="font-medium mb-2">Rate</h3>
+          <div className="flex items-baseline">
+            <span className="font-bold">${ratePerMinute}/</span>
+            <span className="text-gray-600 ml-1">minute</span>
+          </div>
+          <p className="text-sm text-gray-600 mt-1">
+            You're only charged for the time you use
+          </p>
+        </div>
+
+        <Button
+          className=" w-full"
+          onClick={handleConnect}
+        >
+          Start Session Now
+        </Button>
+        {/* <Button
+          variant="outline"
+          classNam w-full"
+
+        >
+          <IconCalendarEvent className="h-4 w-4 mr-2" />
+
+          Schedule for Later
+        </Button> */}
+        <div >
+          <DateTimePickerForm friendId={profileId ? profileId?.[0]! : ""}  />
+        </div>
+        <div className="flex justify-between text-gray-600">
+          <button className="flex items-center hover:text-primary-600 ">
+            <IconHeart className="h-4 w-4 mr-1" />
+            <span className="text-sm">Save</span>
+          </button>
+          <button className="flex items-center hover:text-error-600">
+            <IconFlag className="h-4 w-4 mr-1" />
+            <span className="text-sm">Report</span>
           </button>
         </div>
-      </div>
-      
-      <div className="mb-6">
-        <h3 className="font-medium mb-3">Privacy Settings</h3>
-        <div className="space-y-3 space-x-3">
-          {communicationType === 'video' && (
-            <Toggle
-              isChecked={blurFace}
-              onChange={setBlurFace}
-              label="Blur my face"
-              color="accent"
-            //   className='bg-primary'
-            />
-          )}
-          {(communicationType === 'voice' || communicationType === 'video') && (
-            <Toggle
-              isChecked={modifyVoice}
-              onChange={setModifyVoice}
-              label="Modify my voice"
-              color="primary"
-            />
-          )}
-        </div>
-      </div>
-      
-      <div className="mb-6">
-        <h3 className="font-medium mb-2">Rate</h3>
-        <div className="flex items-baseline">
-          <span className="font-bold">${ratePerMinute}/</span>
-          <span className="text-gray-600 ml-1">minute</span>
-        </div>
-        <p className="text-sm text-gray-600 mt-1">
-          You're only charged for the time you use
-        </p>
-      </div>
-      
-      <Button
-        className="mb-3 w-full"
-        onClick={handleConnect}
-      >
-        Start Session Now
-      </Button>
-      <Button
-        variant="outline"
-        className="mb-6 w-full"
-        
-      >
-        <IconCalendarEvent  className="h-4 w-4 mr-2" />
-      
-        Schedule for Later
-      </Button>
-      <div className="flex justify-between text-gray-600">
-        <button className="flex items-center hover:text-primary-600 ">
-          <IconHeart  className="h-4 w-4 mr-1" />
-          <span className="text-sm">Save</span>
-        </button>
-        <button className="flex items-center hover:text-error-600">
-          <IconFlag className="h-4 w-4 mr-1" />
-          <span className="text-sm">Report</span>
-        </button>
-      </div>
-    </Card>
-  </div>
+      </Card>
+    </div>
   )
 }
 

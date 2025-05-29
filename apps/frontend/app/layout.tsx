@@ -9,6 +9,7 @@ import { Suspense } from "react";
 
 import { UIProviders } from "./UIProvider";
 import Loading from "./loading";
+import { Toaster } from "@/components/ui/sonner";
 const geistSans = localFont({
   src: "./fonts/GeistVF.woff",
   variable: "--font-geist-sans",
@@ -31,7 +32,7 @@ export default function RootLayout({
   return (
     <html lang="en">
       <body
-        className={`${geistSans.variable} ${geistMono.variable} scroll-smooth`}
+        className={`${geistSans.variable} ${geistMono.variable} scroll-smooth `}
       >
         <ToastContainer
           position="top-right"
@@ -46,9 +47,10 @@ export default function RootLayout({
           theme="light"
           transition={Bounce}
         />
+           <Toaster />
         <QueryProvider>
-          <NavBar />
           <UIProviders>
+          <NavBar />
 
             <Suspense fallback={<Loading />}>
               {children}

@@ -22,26 +22,26 @@ const Card: FC<CardProps> = ({id, profileImg, name, rating, sessions, ratePerMin
   
   return (
     <motion.div 
-      className="bg-white rounded-xl overflow-hidden border border-gray-100 shadow-sm hover:shadow-xl transition-all duration-300"
-      initial={{ opacity: 0, y: 20 }}
+      className="rounded-xl overflow-hidden border border-gray-100 shadow-sm hover:shadow-xl transition-all duration-300"
+      initial={{ opacity: 0, y: 10 }}
       animate={{ opacity: 1, y: 0 }}
-      whileHover={{ y: -5 }}
+      whileHover={{ y: -2 }}
     >
       {/* Header with background accent */}
-      <div className="relative h-24 bg-gradient-to-r from-[#3B7385] to-[#5c9fb7]">
-        <div className="absolute -bottom-12 left-6 ring-4 ring-white rounded-full overflow-hidden shadow-lg">
+      <div className="relative h-16 bg-gradient-to-r from-[#3B7385] to-[#5c9fb7]">
+        <div className="absolute -bottom-6 left-6 ring-4 ring-white rounded-full overflow-hidden shadow-lg">
           <Image
             alt={`${name}'s profile photo`}
             src={profileImg ?? "https://avatar.iran.liara.run/public/24"}
-            width={80}
-            height={80}
-            className="w-24 h-24 object-cover"
+            width={40}
+            height={40}
+            className="w-12 h-12 object-cover"
           />
         </div>
         
         {/* Rating badge */}
         <motion.div 
-          className="absolute top-4 right-4 bg-white bg-opacity-90 rounded-full px-3 py-1 flex items-center gap-1 shadow-md"
+          className="absolute top-4 right-4 bg-opacity-90 rounded-full px-3 py-1 flex items-center gap-1 shadow-md"
           whileHover={{ scale: 1.05 }}
         >
           <IconStarFilled size={16} className="text-yellow-400" />
@@ -50,9 +50,9 @@ const Card: FC<CardProps> = ({id, profileImg, name, rating, sessions, ratePerMin
       </div>
 
       {/* Content */}
-      <div className="pt-16 px-6 pb-6">
+      <div className="pt-11 px-3 pb-4 space-y-4">
         {/* Name and price */}
-        <div className="mb-4 flex justify-between items-start">
+        <div className=" flex justify-between items-start">
           <div>
             <h3 className="font-semibold text-lg text-gray-900">{name}</h3>
             <div className="flex items-center gap-1 text-sm text-gray-500">
@@ -66,14 +66,14 @@ const Card: FC<CardProps> = ({id, profileImg, name, rating, sessions, ratePerMin
         </div>
 
         {/* Bio with truncation */}
-        <div className="mb-4">
+        <div className="">
           <p className="text-sm text-gray-600 line-clamp-2">
             {bio || "No bio available"}
           </p>
         </div>
 
         {/* Specialties */}
-        <div className="flex gap-2 flex-wrap mb-6">
+        <div className="flex gap-2 flex-wrap ">
           {specialties?.slice(0, 3).map((item, id) => (
             <motion.span
               key={id}

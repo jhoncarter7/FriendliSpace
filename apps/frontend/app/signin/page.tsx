@@ -20,7 +20,8 @@ function Signin() {
   const { isAuthenticated, login } = useStore(authStore, (state) => state);
   const handleSubmit = async (e: React.FormEvent<HTMLFormElement>) => {
     e.preventDefault();
-    const form = e.target as HTMLFormElement;
+    try {
+      const form = e.target as HTMLFormElement;
     const email = (form.elements.namedItem("email") as HTMLInputElement).value;
     const password = (form.elements.namedItem("password") as HTMLInputElement)
       .value;
@@ -36,6 +37,11 @@ function Signin() {
     console.log(isAuthenticated, "isAuthenticated")
     if (!isAuthenticated) {
       navigate.push("/");
+    }
+    } catch (error) {
+      toast.error("wrong credentials")
+      console.log(error)
+      return
     }
   };
 

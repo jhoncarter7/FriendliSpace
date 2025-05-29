@@ -1,4 +1,5 @@
 // hero.ts
 import { heroui } from "@heroui/react"
 
-// export default heroui();
+const hero: ReturnType<typeof heroui> = heroui();
+export default hero;

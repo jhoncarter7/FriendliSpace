@@ -22,6 +22,8 @@ export function useVideoCall(roomId: string) {
     wsRef.current.onopen = () => {
       wsRef.current!.send(JSON.stringify({ type: 'join', roomId }))
     }
+    wsRef.current.onerror = (err) => console.error("WS error:", err)
+    wsRef.current.onclose = (e) => console.warn("WS closed:", e.code, e.reason)
 
     // 2) setup peer connection
     const pc = new RTCPeerConnection({

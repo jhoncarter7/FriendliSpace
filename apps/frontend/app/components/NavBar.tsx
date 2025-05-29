@@ -69,7 +69,7 @@ const NavBar: React.FC = () => {
                 Find Friends
               </li>
               {/* <li className="cursor-pointer">Find Therapist</li> */}
-              <li className="cursor-pointer">My Sessions</li>
+              <li className="cursor-pointer"  onClick={() => navigate.push("/sessions")}>My Sessions</li>
             </ul>
           </nav>
           <div>

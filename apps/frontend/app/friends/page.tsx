@@ -229,10 +229,10 @@ const FriendList = () => {
               {friendList?.map((item: any, id: number) => (
                 <motion.div
                   key={id}
-                  initial={{ opacity: 0, y: 20 }}
+                  initial={{ opacity: 0, y: 10 }}
                   animate={{ opacity: 1, y: 0 }}
-                  transition={{ duration: 0.5, delay: id * 0.1 }}
-                  whileHover={{ y: -5, boxShadow: "0 10px 30px rgba(0, 0, 0, 0.1)" }}
+                  transition={{ duration: 0.2, delay: id * 0.1 }}
+                  whileHover={{ y: -2,  }}
                 >
                   <Card
                     id={item.userId}
