@@ -23,7 +23,8 @@ const createSession = async (
     // 1. VALIDATE input - Use validation library!
     // const validatedBody = CreateSessionSchema.parse(req.body); // Example with Zod
     const body = req.body;
-    const { friendId, communicationType, status, DateTime } = body;
+    console.log("Create Session Body:", body);
+    const { friendId, communicationType, status,  startTime } = body;
 
     if (!friendId || !communicationType || !status) {
       res
@@ -58,7 +59,7 @@ const createSession = async (
     }
 
     const newSession = await prismaClient.session.create({
-      data: { seekerId, friendId, status: "PENDING", communicationType: normalize , startTime: DateTime ? new Date(DateTime) : undefined },
+      data: { seekerId, friendId, status: "PENDING", communicationType: normalize , startTime},
       include: {
         seeker: {
           select: {

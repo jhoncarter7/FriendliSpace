@@ -5259,6 +5259,7 @@ export namespace Prisma {
   export type SessionMinAggregateOutputType = {
     id: string | null
     seekerId: string | null
+    meetingId: string | null
     friendId: string | null
     startTime: Date | null
     endTime: Date | null
@@ -5272,6 +5273,7 @@ export namespace Prisma {
   export type SessionMaxAggregateOutputType = {
     id: string | null
     seekerId: string | null
+    meetingId: string | null
     friendId: string | null
     startTime: Date | null
     endTime: Date | null
@@ -5285,6 +5287,7 @@ export namespace Prisma {
   export type SessionCountAggregateOutputType = {
     id: number
     seekerId: number
+    meetingId: number
     friendId: number
     startTime: number
     endTime: number
@@ -5308,6 +5311,7 @@ export namespace Prisma {
   export type SessionMinAggregateInputType = {
     id?: true
     seekerId?: true
+    meetingId?: true
     friendId?: true
     startTime?: true
     endTime?: true
@@ -5321,6 +5325,7 @@ export namespace Prisma {
   export type SessionMaxAggregateInputType = {
     id?: true
     seekerId?: true
+    meetingId?: true
     friendId?: true
     startTime?: true
     endTime?: true
@@ -5334,6 +5339,7 @@ export namespace Prisma {
   export type SessionCountAggregateInputType = {
     id?: true
     seekerId?: true
+    meetingId?: true
     friendId?: true
     startTime?: true
     endTime?: true
@@ -5434,6 +5440,7 @@ export namespace Prisma {
   export type SessionGroupByOutputType = {
     id: string
     seekerId: string
+    meetingId: string
     friendId: string
     startTime: Date
     endTime: Date | null
@@ -5466,6 +5473,7 @@ export namespace Prisma {
   export type SessionSelect<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = $Extensions.GetSelect<{
     id?: boolean
     seekerId?: boolean
+    meetingId?: boolean
     friendId?: boolean
     startTime?: boolean
     endTime?: boolean
@@ -5484,6 +5492,7 @@ export namespace Prisma {
   export type SessionSelectCreateManyAndReturn<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = $Extensions.GetSelect<{
     id?: boolean
     seekerId?: boolean
+    meetingId?: boolean
     friendId?: boolean
     startTime?: boolean
     endTime?: boolean
@@ -5499,6 +5508,7 @@ export namespace Prisma {
   export type SessionSelectUpdateManyAndReturn<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = $Extensions.GetSelect<{
     id?: boolean
     seekerId?: boolean
+    meetingId?: boolean
     friendId?: boolean
     startTime?: boolean
     endTime?: boolean
@@ -5514,6 +5524,7 @@ export namespace Prisma {
   export type SessionSelectScalar = {
     id?: boolean
     seekerId?: boolean
+    meetingId?: boolean
     friendId?: boolean
     startTime?: boolean
     endTime?: boolean
@@ -5524,7 +5535,7 @@ export namespace Prisma {
     updatedAt?: boolean
   }
 
-  export type SessionOmit<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = $Extensions.GetOmit<"id" | "seekerId" | "friendId" | "startTime" | "endTime" | "durationMinutes" | "status" | "communicationType" | "createdAt" | "updatedAt", ExtArgs["result"]["session"]>
+  export type SessionOmit<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = $Extensions.GetOmit<"id" | "seekerId" | "meetingId" | "friendId" | "startTime" | "endTime" | "durationMinutes" | "status" | "communicationType" | "createdAt" | "updatedAt", ExtArgs["result"]["session"]>
   export type SessionInclude<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
     seeker?: boolean | UserDefaultArgs<ExtArgs>
     friend?: boolean | UserDefaultArgs<ExtArgs>
@@ -5552,6 +5563,7 @@ export namespace Prisma {
     scalars: $Extensions.GetPayloadResult<{
       id: string
       seekerId: string
+      meetingId: string
       friendId: string
       startTime: Date
       endTime: Date | null
@@ -5989,6 +6001,7 @@ export namespace Prisma {
   interface SessionFieldRefs {
     readonly id: FieldRef<"Session", 'String'>
     readonly seekerId: FieldRef<"Session", 'String'>
+    readonly meetingId: FieldRef<"Session", 'String'>
     readonly friendId: FieldRef<"Session", 'String'>
     readonly startTime: FieldRef<"Session", 'DateTime'>
     readonly endTime: FieldRef<"Session", 'DateTime'>
@@ -9884,6 +9897,7 @@ export namespace Prisma {
   export const SessionScalarFieldEnum: {
     id: 'id',
     seekerId: 'seekerId',
+    meetingId: 'meetingId',
     friendId: 'friendId',
     startTime: 'startTime',
     endTime: 'endTime',
@@ -10342,6 +10356,7 @@ export namespace Prisma {
     NOT?: SessionWhereInput | SessionWhereInput[]
     id?: StringFilter<"Session"> | string
     seekerId?: StringFilter<"Session"> | string
+    meetingId?: StringFilter<"Session"> | string
     friendId?: StringFilter<"Session"> | string
     startTime?: DateTimeFilter<"Session"> | Date | string
     endTime?: DateTimeNullableFilter<"Session"> | Date | string | null
@@ -10359,6 +10374,7 @@ export namespace Prisma {
   export type SessionOrderByWithRelationInput = {
     id?: SortOrder
     seekerId?: SortOrder
+    meetingId?: SortOrder
     friendId?: SortOrder
     startTime?: SortOrder
     endTime?: SortOrderInput | SortOrder
@@ -10379,6 +10395,7 @@ export namespace Prisma {
     OR?: SessionWhereInput[]
     NOT?: SessionWhereInput | SessionWhereInput[]
     seekerId?: StringFilter<"Session"> | string
+    meetingId?: StringFilter<"Session"> | string
     friendId?: StringFilter<"Session"> | string
     startTime?: DateTimeFilter<"Session"> | Date | string
     endTime?: DateTimeNullableFilter<"Session"> | Date | string | null
@@ -10396,6 +10413,7 @@ export namespace Prisma {
   export type SessionOrderByWithAggregationInput = {
     id?: SortOrder
     seekerId?: SortOrder
+    meetingId?: SortOrder
     friendId?: SortOrder
     startTime?: SortOrder
     endTime?: SortOrderInput | SortOrder
@@ -10417,6 +10435,7 @@ export namespace Prisma {
     NOT?: SessionScalarWhereWithAggregatesInput | SessionScalarWhereWithAggregatesInput[]
     id?: StringWithAggregatesFilter<"Session"> | string
     seekerId?: StringWithAggregatesFilter<"Session"> | string
+    meetingId?: StringWithAggregatesFilter<"Session"> | string
     friendId?: StringWithAggregatesFilter<"Session"> | string
     startTime?: DateTimeWithAggregatesFilter<"Session"> | Date | string
     endTime?: DateTimeNullableWithAggregatesFilter<"Session"> | Date | string | null
@@ -10926,6 +10945,7 @@ export namespace Prisma {
 
   export type SessionCreateInput = {
     id?: string
+    meetingId?: string
     startTime?: Date | string
     endTime?: Date | string | null
     durationMinutes?: number | null
@@ -10942,6 +10962,7 @@ export namespace Prisma {
   export type SessionUncheckedCreateInput = {
     id?: string
     seekerId: string
+    meetingId?: string
     friendId: string
     startTime?: Date | string
     endTime?: Date | string | null
@@ -10956,6 +10977,7 @@ export namespace Prisma {
 
   export type SessionUpdateInput = {
     id?: StringFieldUpdateOperationsInput | string
+    meetingId?: StringFieldUpdateOperationsInput | string
     startTime?: DateTimeFieldUpdateOperationsInput | Date | string
     endTime?: NullableDateTimeFieldUpdateOperationsInput | Date | string | null
     durationMinutes?: NullableIntFieldUpdateOperationsInput | number | null
@@ -10972,6 +10994,7 @@ export namespace Prisma {
   export type SessionUncheckedUpdateInput = {
     id?: StringFieldUpdateOperationsInput | string
     seekerId?: StringFieldUpdateOperationsInput | string
+    meetingId?: StringFieldUpdateOperationsInput | string
     friendId?: StringFieldUpdateOperationsInput | string
     startTime?: DateTimeFieldUpdateOperationsInput | Date | string
     endTime?: NullableDateTimeFieldUpdateOperationsInput | Date | string | null
@@ -10987,6 +11010,7 @@ export namespace Prisma {
   export type SessionCreateManyInput = {
     id?: string
     seekerId: string
+    meetingId?: string
     friendId: string
     startTime?: Date | string
     endTime?: Date | string | null
@@ -10999,6 +11023,7 @@ export namespace Prisma {
 
   export type SessionUpdateManyMutationInput = {
     id?: StringFieldUpdateOperationsInput | string
+    meetingId?: StringFieldUpdateOperationsInput | string
     startTime?: DateTimeFieldUpdateOperationsInput | Date | string
     endTime?: NullableDateTimeFieldUpdateOperationsInput | Date | string | null
     durationMinutes?: NullableIntFieldUpdateOperationsInput | number | null
@@ -11011,6 +11036,7 @@ export namespace Prisma {
   export type SessionUncheckedUpdateManyInput = {
     id?: StringFieldUpdateOperationsInput | string
     seekerId?: StringFieldUpdateOperationsInput | string
+    meetingId?: StringFieldUpdateOperationsInput | string
     friendId?: StringFieldUpdateOperationsInput | string
     startTime?: DateTimeFieldUpdateOperationsInput | Date | string
     endTime?: NullableDateTimeFieldUpdateOperationsInput | Date | string | null
@@ -11622,6 +11648,7 @@ export namespace Prisma {
   export type SessionCountOrderByAggregateInput = {
     id?: SortOrder
     seekerId?: SortOrder
+    meetingId?: SortOrder
     friendId?: SortOrder
     startTime?: SortOrder
     endTime?: SortOrder
@@ -11639,6 +11666,7 @@ export namespace Prisma {
   export type SessionMaxOrderByAggregateInput = {
     id?: SortOrder
     seekerId?: SortOrder
+    meetingId?: SortOrder
     friendId?: SortOrder
     startTime?: SortOrder
     endTime?: SortOrder
@@ -11652,6 +11680,7 @@ export namespace Prisma {
   export type SessionMinOrderByAggregateInput = {
     id?: SortOrder
     seekerId?: SortOrder
+    meetingId?: SortOrder
     friendId?: SortOrder
     startTime?: SortOrder
     endTime?: SortOrder
@@ -12923,6 +12952,7 @@ export namespace Prisma {
 
   export type SessionCreateWithoutSeekerInput = {
     id?: string
+    meetingId?: string
     startTime?: Date | string
     endTime?: Date | string | null
     durationMinutes?: number | null
@@ -12937,6 +12967,7 @@ export namespace Prisma {
 
   export type SessionUncheckedCreateWithoutSeekerInput = {
     id?: string
+    meetingId?: string
     friendId: string
     startTime?: Date | string
     endTime?: Date | string | null
@@ -12961,6 +12992,7 @@ export namespace Prisma {
 
   export type SessionCreateWithoutFriendInput = {
     id?: string
+    meetingId?: string
     startTime?: Date | string
     endTime?: Date | string | null
     durationMinutes?: number | null
@@ -12976,6 +13008,7 @@ export namespace Prisma {
   export type SessionUncheckedCreateWithoutFriendInput = {
     id?: string
     seekerId: string
+    meetingId?: string
     startTime?: Date | string
     endTime?: Date | string | null
     durationMinutes?: number | null
@@ -13255,6 +13288,7 @@ export namespace Prisma {
     NOT?: SessionScalarWhereInput | SessionScalarWhereInput[]
     id?: StringFilter<"Session"> | string
     seekerId?: StringFilter<"Session"> | string
+    meetingId?: StringFilter<"Session"> | string
     friendId?: StringFilter<"Session"> | string
     startTime?: DateTimeFilter<"Session"> | Date | string
     endTime?: DateTimeNullableFilter<"Session"> | Date | string | null
@@ -13880,6 +13914,7 @@ export namespace Prisma {
 
   export type SessionCreateWithoutReviewsInput = {
     id?: string
+    meetingId?: string
     startTime?: Date | string
     endTime?: Date | string | null
     durationMinutes?: number | null
@@ -13895,6 +13930,7 @@ export namespace Prisma {
   export type SessionUncheckedCreateWithoutReviewsInput = {
     id?: string
     seekerId: string
+    meetingId?: string
     friendId: string
     startTime?: Date | string
     endTime?: Date | string | null
@@ -14010,6 +14046,7 @@ export namespace Prisma {
 
   export type SessionUpdateWithoutReviewsInput = {
     id?: StringFieldUpdateOperationsInput | string
+    meetingId?: StringFieldUpdateOperationsInput | string
     startTime?: DateTimeFieldUpdateOperationsInput | Date | string
     endTime?: NullableDateTimeFieldUpdateOperationsInput | Date | string | null
     durationMinutes?: NullableIntFieldUpdateOperationsInput | number | null
@@ -14025,6 +14062,7 @@ export namespace Prisma {
   export type SessionUncheckedUpdateWithoutReviewsInput = {
     id?: StringFieldUpdateOperationsInput | string
     seekerId?: StringFieldUpdateOperationsInput | string
+    meetingId?: StringFieldUpdateOperationsInput | string
     friendId?: StringFieldUpdateOperationsInput | string
     startTime?: DateTimeFieldUpdateOperationsInput | Date | string
     endTime?: NullableDateTimeFieldUpdateOperationsInput | Date | string | null
@@ -14222,6 +14260,7 @@ export namespace Prisma {
 
   export type SessionCreateWithoutReportsInput = {
     id?: string
+    meetingId?: string
     startTime?: Date | string
     endTime?: Date | string | null
     durationMinutes?: number | null
@@ -14237,6 +14276,7 @@ export namespace Prisma {
   export type SessionUncheckedCreateWithoutReportsInput = {
     id?: string
     seekerId: string
+    meetingId?: string
     friendId: string
     startTime?: Date | string
     endTime?: Date | string | null
@@ -14364,6 +14404,7 @@ export namespace Prisma {
 
   export type SessionUpdateWithoutReportsInput = {
     id?: StringFieldUpdateOperationsInput | string
+    meetingId?: StringFieldUpdateOperationsInput | string
     startTime?: DateTimeFieldUpdateOperationsInput | Date | string
     endTime?: NullableDateTimeFieldUpdateOperationsInput | Date | string | null
     durationMinutes?: NullableIntFieldUpdateOperationsInput | number | null
@@ -14379,6 +14420,7 @@ export namespace Prisma {
   export type SessionUncheckedUpdateWithoutReportsInput = {
     id?: StringFieldUpdateOperationsInput | string
     seekerId?: StringFieldUpdateOperationsInput | string
+    meetingId?: StringFieldUpdateOperationsInput | string
     friendId?: StringFieldUpdateOperationsInput | string
     startTime?: DateTimeFieldUpdateOperationsInput | Date | string
     endTime?: NullableDateTimeFieldUpdateOperationsInput | Date | string | null
@@ -14576,6 +14618,7 @@ export namespace Prisma {
 
   export type SessionCreateManySeekerInput = {
     id?: string
+    meetingId?: string
     friendId: string
     startTime?: Date | string
     endTime?: Date | string | null
@@ -14589,6 +14632,7 @@ export namespace Prisma {
   export type SessionCreateManyFriendInput = {
     id?: string
     seekerId: string
+    meetingId?: string
     startTime?: Date | string
     endTime?: Date | string | null
     durationMinutes?: number | null
@@ -14654,6 +14698,7 @@ export namespace Prisma {
 
   export type SessionUpdateWithoutSeekerInput = {
     id?: StringFieldUpdateOperationsInput | string
+    meetingId?: StringFieldUpdateOperationsInput | string
     startTime?: DateTimeFieldUpdateOperationsInput | Date | string
     endTime?: NullableDateTimeFieldUpdateOperationsInput | Date | string | null
     durationMinutes?: NullableIntFieldUpdateOperationsInput | number | null
@@ -14668,6 +14713,7 @@ export namespace Prisma {
 
   export type SessionUncheckedUpdateWithoutSeekerInput = {
     id?: StringFieldUpdateOperationsInput | string
+    meetingId?: StringFieldUpdateOperationsInput | string
     friendId?: StringFieldUpdateOperationsInput | string
     startTime?: DateTimeFieldUpdateOperationsInput | Date | string
     endTime?: NullableDateTimeFieldUpdateOperationsInput | Date | string | null
@@ -14682,6 +14728,7 @@ export namespace Prisma {
 
   export type SessionUncheckedUpdateManyWithoutSeekerInput = {
     id?: StringFieldUpdateOperationsInput | string
+    meetingId?: StringFieldUpdateOperationsInput | string
     friendId?: StringFieldUpdateOperationsInput | string
     startTime?: DateTimeFieldUpdateOperationsInput | Date | string
     endTime?: NullableDateTimeFieldUpdateOperationsInput | Date | string | null
@@ -14694,6 +14741,7 @@ export namespace Prisma {
 
   export type SessionUpdateWithoutFriendInput = {
     id?: StringFieldUpdateOperationsInput | string
+    meetingId?: StringFieldUpdateOperationsInput | string
     startTime?: DateTimeFieldUpdateOperationsInput | Date | string
     endTime?: NullableDateTimeFieldUpdateOperationsInput | Date | string | null
     durationMinutes?: NullableIntFieldUpdateOperationsInput | number | null
@@ -14709,6 +14757,7 @@ export namespace Prisma {
   export type SessionUncheckedUpdateWithoutFriendInput = {
     id?: StringFieldUpdateOperationsInput | string
     seekerId?: StringFieldUpdateOperationsInput | string
+    meetingId?: StringFieldUpdateOperationsInput | string
     startTime?: DateTimeFieldUpdateOperationsInput | Date | string
     endTime?: NullableDateTimeFieldUpdateOperationsInput | Date | string | null
     durationMinutes?: NullableIntFieldUpdateOperationsInput | number | null
@@ -14723,6 +14772,7 @@ export namespace Prisma {
   export type SessionUncheckedUpdateManyWithoutFriendInput = {
     id?: StringFieldUpdateOperationsInput | string
     seekerId?: StringFieldUpdateOperationsInput | string
+    meetingId?: StringFieldUpdateOperationsInput | string
     startTime?: DateTimeFieldUpdateOperationsInput | Date | string
     endTime?: NullableDateTimeFieldUpdateOperationsInput | Date | string | null
     durationMinutes?: NullableIntFieldUpdateOperationsInput | number | null

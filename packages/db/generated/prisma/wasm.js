@@ -158,6 +158,7 @@ exports.Prisma.FriendScalarFieldEnum = {
 exports.Prisma.SessionScalarFieldEnum = {
   id: 'id',
   seekerId: 'seekerId',
+  meetingId: 'meetingId',
   friendId: 'friendId',
   startTime: 'startTime',
   endTime: 'endTime',

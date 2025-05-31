@@ -254,7 +254,7 @@ const SessionsPage = () => {
                           <div className="flex items-center space-x-4 text-sm text-gray-600 mt-1">
                             <div className="flex items-center space-x-1">
                               <IconCalendarEvent className="w-4 h-4" />
-                              <span>{formatDate(session.createdAt)}</span>
+                              <span>{formatDate(session.startTime!)}</span>
                             </div>
                             <div className="flex items-center space-x-1">
                               {getCommunicationIcon(session.communicationType)}

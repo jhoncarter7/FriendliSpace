@@ -86,23 +86,24 @@ model Friend {
 model Session {
   id                String            @id @default(cuid())
   seekerId          String
+  meetingId         String            @default(uuid())
   // If Seeker User ID changes, update Session. If Seeker User deleted, delete Session.
   seeker            User              @relation("SeekerSessions", fields: [seekerId], references: [id], onDelete: Cascade, onUpdate: Cascade)
-  friendId          String // Foreign key for the friend User
+  friendId          String
   // If Friend User ID changes, update Session. If Friend User deleted, delete Session.
   friend            User              @relation("FriendSessions", fields: [friendId], references: [id], onDelete: Cascade, onUpdate: Cascade)
-  startTime         DateTime          @default(now()) // When the session started
-  endTime           DateTime? // When the session ended (nullable if ongoing)
-  durationMinutes   Int? // Calculated duration in minutes
-  status            SessionStatus     @default(PENDING) // Status of the session
-  communicationType CommunicationType // Type of communication used
+  startTime         DateTime          @default(now())
+  endTime           DateTime?
+  durationMinutes   Int?
+  status            SessionStatus     @default(PENDING)
+  communicationType CommunicationType
   // Removed cost for MVP
   // cost           Float?
   createdAt         DateTime          @default(now())
   updatedAt         DateTime          @updatedAt
 
   // Relationships
-  reviews Review[] // Reviews associated with this session
+  reviews Review[]
   reports Report[]
 
   @@map("sessions")

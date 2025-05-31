@@ -50,6 +50,7 @@ export function DateTimePickerForm({
   });
  
 const createSessionHandler = async (data: z.infer<typeof FormSchema>) => {
+    console.log(`Selected date and time:, ${data.time}`);
    try {
       const sessionData = await axios.post(`${Api.CREATE_SESSION}`, {
         friendId,
@@ -69,7 +70,7 @@ const createSessionHandler = async (data: z.infer<typeof FormSchema>) => {
   function onSubmit(data: z.infer<typeof FormSchema>) {
     
     createSessionHandler(data);
-    console.log(`Selected date and time:, ${data.time}`);
+  
     toast.success(`Schedule meeting at: ${format(data.time, "PPPPpppp")}`);
   }
  
